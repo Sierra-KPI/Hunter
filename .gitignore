@@ -465,3 +465,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,dotnetcore,unity
+
+Hunter/Library
+Hunter/Temp
+Hunter/UserSettings
