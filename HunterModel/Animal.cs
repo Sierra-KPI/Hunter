@@ -4,6 +4,6 @@
     {
         public float BoardSeekRadius { get; set; }
         public float BodySeekRadius { get; set;}
-        public List<Entity> entities;
+        public List<Entity> Entities = new();
     }
 }
