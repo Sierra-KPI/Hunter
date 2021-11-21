@@ -6,20 +6,20 @@ using UnityEngine;
 public class View : MonoBehaviour
 {
     private HunterGame _game;
-    private Dictionary<Entity, GameObject> _entities = new();
+    private readonly Dictionary<Entity, GameObject> _entities = new();
     [SerializeField]
-    private Sprite rabbitSprite;
+    private Sprite _rabbitSprite;
 
     private void Start()
     {
-        _game = new(3, 0, 0);
+        _game = new(1, 0, 0);
 
         foreach (Rabbit rabbit in _game.Rabbits)
         {
             GameObject rabbitObject = new GameObject();
             SpriteRenderer rabbitSpriteRenderer =
                 rabbitObject.AddComponent<SpriteRenderer>();
-            rabbitSpriteRenderer.sprite = rabbitSprite;
+            rabbitSpriteRenderer.sprite = _rabbitSprite;
             rabbitSpriteRenderer.color = Color.blue;
             float xPosition = rabbit.Position.X;
             float yPosition = rabbit.Position.Y;
@@ -31,7 +31,6 @@ public class View : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     private void Update()
     {
         _game.Update();
@@ -42,7 +41,6 @@ public class View : MonoBehaviour
             float yPos = keyValue.Key.Position.Y;
             Vector3 newPosition = new Vector3(xPos, yPos);
             keyValue.Value.transform.localPosition = newPosition;
-            Debug.Log(keyValue.Value.transform.localPosition);
         }
     }
 }
