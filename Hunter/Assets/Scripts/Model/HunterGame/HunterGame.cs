@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Threading;
 using Hunter.Model.Entities;
 
 namespace Hunter.Model.HunterGame
-{ 
+{
     public class HunterGame
     {
         public List<Rabbit> Rabbits = new();
@@ -21,15 +20,10 @@ namespace Hunter.Model.HunterGame
                     Position = new Vector2(xPos, yPos)
                 };
                 Rabbits.Add(new Rabbit());
-                Console.WriteLine(rabbit.Position);
             }
-    
-            TimerCallback timerCallback = new TimerCallback(Update);
-            Timer timer = new(timerCallback, null, 0, 100);
-            Console.ReadLine();
         }
     
-        public void Update(object obj)
+        public void Update()
         {
             foreach (Rabbit rabbit in Rabbits)
             {

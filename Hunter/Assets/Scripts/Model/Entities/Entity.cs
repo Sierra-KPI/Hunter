@@ -10,13 +10,13 @@ namespace Hunter.Model.Entities
         public Vector2 Acceleraion { get; set; }
         public Vector2 Position { get; set; }
         public float MaxSpeed { get; set; } = 4;
-        public float MaxForce { get; set; } = 0.2f;
+        public float MaxForce { get; set; } = 0.01f;
 
         public void Move()
         {
             Random random = new Random();
-            int max = 10;
-            int min = -10;
+            int max = 1;
+            int min = -1;
             float xPos = (float)(random.NextDouble() * (max - min) + min);
             float yPos = (float)(random.NextDouble() * (max - min) + min);
             Vector2 randVector = new Vector2(xPos, yPos);
