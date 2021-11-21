@@ -1,16 +1,40 @@
-public class HunterGame
-{
-    public List<Rabbit> Rabbits = new();
+using System;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Threading;
+using Hunter.Model.Entities;
 
-    public HunterGame(int rabbits, int deers, int wolfs)
+namespace Hunter.Model.HunterGame
+{ 
+    public class HunterGame
     {
-        for (var i = 0; i < rabbits; i++)
+        public List<Rabbit> Rabbits = new();
+    
+        public HunterGame(int rabbits, int deers, int wolfs)
         {
-            Rabbit rabbit = new Rabbit
+            for (var i = 0; i < rabbits; i++)
             {
-                Position = new System.Numerics.Vector2 { }
-            };
-            Rabbits.Add(new Rabbit());
+                int xPos = new Random().Next(0, 11);
+                int yPos = new Random().Next(0, 11);
+                Rabbit rabbit = new Rabbit
+                {
+                    Position = new Vector2(xPos, yPos)
+                };
+                Rabbits.Add(new Rabbit());
+                Console.WriteLine(rabbit.Position);
+            }
+    
+            TimerCallback timerCallback = new TimerCallback(Update);
+            Timer timer = new(timerCallback, null, 0, 100);
+            Console.ReadLine();
+        }
+    
+        public void Update(object obj)
+        {
+            foreach (Rabbit rabbit in Rabbits)
+            {
+                rabbit.Move();
+            }
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Hunter.Model.Entities
 {
     public class Animal : Entity

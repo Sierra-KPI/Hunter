@@ -15,15 +15,18 @@ namespace HunterModel
         {
             Random random = new Random();
             int max = 10;
-            int min = 0;
+            int min = -10;
             float xPos = (float)(random.NextDouble() * (max - min) + min);
             float yPos = (float)(random.NextDouble() * (max - min) + min);
             Vector2 randVector = new Vector2(xPos, yPos);
             Acceleraion = Vector2.Add(randVector, Acceleraion);
             Velocity = Vector2.Add(Acceleraion, Velocity);
-            Position = Acceleraion;
+            Velocity = Vector2.Multiply(Velocity, MaxForce);
+            Position = Vector2.Add(Position, Velocity);
             //Console.WriteLine(Position);
             Acceleraion = Vector2.Zero;
+            Velocity = Vector2.Zero;
+            Console.WriteLine(Position);
         }
 
         public void Die() { }
