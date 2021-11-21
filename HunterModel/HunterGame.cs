@@ -21,7 +21,7 @@ namespace HunterModel
             }
 
             TimerCallback timerCallback = new TimerCallback(Update);
-            Timer timer = new(timerCallback, null, 0, 2000);
+            Timer timer = new(timerCallback, null, 0, 100);
             Console.ReadLine();
         }
 
