@@ -10,9 +10,12 @@ namespace HunterModel
         public Vector2 Position { get; set; }
         public float Speed { get; set; } = 4;
         public float Force { get; set; } = 0.2f;
-        public float WanderTheta { get; set; } = (float)(Math.PI / 2);
 
-        public void Move() { }
+        public void Move()
+        {
+            Console.WriteLine("I move");
+        }
+
         public void Die() { }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using Hunter.Model.Entities;
 
 namespace HunterModel
 {
@@ -20,11 +19,18 @@ namespace HunterModel
                 Rabbits.Add(new Rabbit());
                 Console.WriteLine(rabbit.Position);
             }
+
+            TimerCallback timerCallback = new TimerCallback(Update);
+            Timer timer = new(timerCallback, null, 0, 2000);
+            Console.ReadLine();
         }
 
-        public void Update()
+        public void Update(object obj)
         {
-
+            foreach (Rabbit rabbit in Rabbits)
+            {
+                rabbit.Move();
+            }
         }
     }
 }
