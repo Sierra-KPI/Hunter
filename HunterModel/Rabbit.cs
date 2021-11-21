@@ -1,4 +1,4 @@
-namespace Hunter.Model.Entities
+﻿namespace HunterModel
 {
     public class Rabbit : Animal
     {
