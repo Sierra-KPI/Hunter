@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7423bf4024a961a408a896f2480f0664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rabbitSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _rabbitSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

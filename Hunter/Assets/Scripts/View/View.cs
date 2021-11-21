@@ -39,8 +39,12 @@ public class View : MonoBehaviour
         {
             float xPos = keyValue.Key.Position.X;
             float yPos = keyValue.Key.Position.Y;
+
             Vector3 newPosition = new Vector3(xPos, yPos);
             keyValue.Value.transform.localPosition = newPosition;
+
+            Debug.Log(keyValue.Key.Velocity);
+            //Debug.Log(keyValue.Value.transform.localPosition);
         }
     }
 }
