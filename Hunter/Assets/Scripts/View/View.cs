@@ -43,7 +43,8 @@ public class View : MonoBehaviour
             Vector3 newPosition = new Vector3(xPos, yPos);
             keyValue.Value.transform.localPosition = newPosition;
 
-            Debug.Log(keyValue.Key.Velocity);
+            //Debug.Log(keyValue.Key.Velocity);
+            //Debug.Log(newPosition);
             //Debug.Log(keyValue.Value.transform.localPosition);
         }
     }

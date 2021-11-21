@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Hunter.Model.Entities
 {
-    public class Animal : Entity
+    public abstract class Animal : Entity
     {
         public float BoardSeekRadius { get; set; }
         public float BodySeekRadius { get; set; }
