@@ -22,6 +22,9 @@ public class View : MonoBehaviour
     [TextArea]
     private string _rabbitsName;
     [SerializeField]
+    [TextArea]
+    private string _rabbitsParentName;
+    [SerializeField]
     private Vector3 _rabbitsSize;
 
     private void Start()
@@ -31,22 +34,34 @@ public class View : MonoBehaviour
         CreateEntities();
     }
 
+    // TO-DO: use some generic type to create all entities using this
+    // Method (maybe use some enums)
     private void CreateEntities()
     {
+        GameObject rabbitsParent = new GameObject
+        {
+            name = _rabbitsParentName
+        };
+        rabbitsParent.transform.parent = transform;
+
         foreach (Entity entity in _game.Rabbits)
         {
             GameObject entityObject = new GameObject();
-            entityObject.transform.parent = transform;
+            entityObject.transform.parent = rabbitsParent.transform;
+
             SpriteRenderer entitySpriteRenderer =
                 entityObject.AddComponent<SpriteRenderer>();
             entitySpriteRenderer.sprite = _rabbitsSprite;
             entitySpriteRenderer.color = _rabbitsColor;
+
             float xPosition = entity.Position.X;
             float yPosition = entity.Position.Y;
             entityObject.transform.localPosition =
                 new Vector3(xPosition, yPosition);
+
             entityObject.name = _rabbitsName;
             entityObject.transform.localScale = _rabbitsSize;
+
             _entities.Add(entity, entityObject);
         }
     }

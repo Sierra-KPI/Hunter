@@ -1,16 +1,32 @@
+using System;
 using System.Numerics;
+using Hunter.Model.Entities;
 
 public static class Behaviours
 {
-    //public static Vector2 Wander(Vector2 position, Vector2 velocity)
-    //{
-    //    float wanderTheta = (float)(Math.PI / 2);
-    //    Vector2 wanderVector = velocity;
-    //    wanderVector = Vector2.Normalize(wanderVector) * 100;
-    //    wanderVector.Add(position);
+    public static Vector2 Wander(Animal entity)
+    {
+        Random random = new Random();
 
-    //    int wanderRadius = 50;
+        Vector2 circleCenter = entity.Velocity;
+        circleCenter = Vector2.Normalize(circleCenter);
+        float circleDistance = 10;
+        circleCenter *= circleDistance;
 
-    //    int theta = wanderTheta + velocity
-    //}
+        float circleRadius = 1;
+        Vector2 displacement = new Vector2(0, -1);
+        displacement *= circleRadius;
+
+        float vectorlength = displacement.Length();
+        displacement.X = (float)Math.Cos(entity.WanderAngle * vectorlength);
+        displacement.Y = (float)Math.Sin(entity.WanderAngle * vectorlength);
+
+        float angleChange = 1;
+        entity.WanderAngle += random.Next(-3, 3) *
+            angleChange - angleChange * 0.5f;
+
+        Vector2 wanderForce = Vector2.Add(circleCenter, displacement);
+
+        return wanderForce;
+    }
 }

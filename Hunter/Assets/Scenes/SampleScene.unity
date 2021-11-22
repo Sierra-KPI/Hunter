@@ -171,6 +171,7 @@ MonoBehaviour:
   _rabbitsSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   _rabbitsColor: {r: 0, g: 0.17322826, b: 1, a: 1}
   _rabbitsName: Rabbit
+  _rabbitsParentName: Rabbits
   _rabbitsSize: {x: 3, y: 3, z: 0}
 --- !u!1 &519420028
 GameObject:

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Hunter.Model.Entities
 {
@@ -7,5 +9,28 @@ namespace Hunter.Model.Entities
         public float BoardSeekRadius { get; set; }
         public float BodySeekRadius { get; set; }
         public List<Entity> Entities = new();
+        public float WanderAngle { get; set; }
+
+        public Animal()
+        {
+            Random random = new Random();
+
+            float max = 1;
+            float min = -1;
+
+            float xPos = (float)(random.NextDouble() * (max - min) + min);
+            float yPos = (float)(random.NextDouble() * (max - min) + min);
+
+            if (xPos == 0)
+            {
+                xPos += 0.1f;
+            }
+            if (yPos == 0)
+            {
+                yPos += 0.1f;
+            }
+
+            Velocity = new Vector2(xPos, yPos);
+        }
     }
 }
