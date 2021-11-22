@@ -6,28 +6,48 @@ using UnityEngine;
 public class View : MonoBehaviour
 {
     private HunterGame _game;
-    private readonly Dictionary<Entity, GameObject> _entities = new();
+    private Dictionary<Entity, GameObject> _entities = new();
+
+    [Header("Game Settings")]
+
+    [Header("Rabbits")]
+    [Range(0, 50)]
     [SerializeField]
-    private Sprite _rabbitSprite;
+    private int _rabbitsNumber;
+    [SerializeField]
+    private Sprite _rabbitsSprite;
+    [SerializeField]
+    private Color _rabbitsColor;
+    [SerializeField]
+    [TextArea]
+    private string _rabbitsName;
+    [SerializeField]
+    private Vector3 _rabbitsSize;
 
     private void Start()
     {
-        _game = new(1, 0, 0);
+        _game = new(_rabbitsNumber, 0, 0);
 
-        foreach (Rabbit rabbit in _game.Rabbits)
+        CreateEntities();
+    }
+
+    private void CreateEntities()
+    {
+        foreach (Entity entity in _game.Rabbits)
         {
-            GameObject rabbitObject = new GameObject();
-            SpriteRenderer rabbitSpriteRenderer =
-                rabbitObject.AddComponent<SpriteRenderer>();
-            rabbitSpriteRenderer.sprite = _rabbitSprite;
-            rabbitSpriteRenderer.color = Color.blue;
-            float xPosition = rabbit.Position.X;
-            float yPosition = rabbit.Position.Y;
-            rabbitObject.transform.localPosition =
+            GameObject entityObject = new GameObject();
+            entityObject.transform.parent = transform;
+            SpriteRenderer entitySpriteRenderer =
+                entityObject.AddComponent<SpriteRenderer>();
+            entitySpriteRenderer.sprite = _rabbitsSprite;
+            entitySpriteRenderer.color = _rabbitsColor;
+            float xPosition = entity.Position.X;
+            float yPosition = entity.Position.Y;
+            entityObject.transform.localPosition =
                 new Vector3(xPosition, yPosition);
-            rabbitObject.name = "Rabbit";
-            rabbitObject.transform.localScale = new Vector3(3,3);
-            _entities.Add(rabbit, rabbitObject);
+            entityObject.name = _rabbitsName;
+            entityObject.transform.localScale = _rabbitsSize;
+            _entities.Add(entity, entityObject);
         }
     }
 
@@ -35,6 +55,11 @@ public class View : MonoBehaviour
     {
         _game.Update();
 
+        ChangeGameObjectsPositions();
+    }
+
+    private void ChangeGameObjectsPositions()
+    {
         foreach (KeyValuePair<Entity, GameObject> keyValue in _entities)
         {
             float xPos = keyValue.Key.Position.X;
@@ -42,10 +67,6 @@ public class View : MonoBehaviour
 
             Vector3 newPosition = new Vector3(xPos, yPos);
             keyValue.Value.transform.localPosition = newPosition;
-
-            //Debug.Log(keyValue.Key.Velocity);
-            //Debug.Log(newPosition);
-            //Debug.Log(keyValue.Value.transform.localPosition);
         }
     }
 }
