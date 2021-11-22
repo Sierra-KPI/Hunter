@@ -13,13 +13,16 @@ namespace Hunter.Model.HunterGame
         {
             for (var i = 0; i < rabbits; i++)
             {
-                int xPos = new Random().Next(0, 11);
-                int yPos = new Random().Next(0, 11);
+                int xPos = new Random().Next(-3, 3);
+                int yPos = new Random().Next(-3, 3);
+
                 Rabbit rabbit = new Rabbit
                 {
-                    Position = new Vector2(xPos, yPos)
+                    //Position = new Vector2(xPos, yPos)
+                    Position = Vector2.Zero
                 };
-                Rabbits.Add(new Rabbit());
+
+                Rabbits.Add(rabbit);
             }
         }
     

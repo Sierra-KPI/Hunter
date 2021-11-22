@@ -8,7 +8,7 @@ namespace Hunter.Model.Entities
 
         public Rabbit() : base()
         {
-            MaxSpeed = 3 * 0.001f;
+            MaxSpeed = 2 * 0.001f;
         }
 
         public override void Move()
