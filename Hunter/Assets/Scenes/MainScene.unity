@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7423bf4024a961a408a896f2480f0664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rabbitsNumber: 9
+  _rabbitsNumber: 50
   _rabbitsPrefab: {fileID: 2939507886603013002, guid: 597a91cef0c335f40ac900a72b027d7a, type: 3}
   _rabbitsParentName: Rabbits
 --- !u!1 &519420028

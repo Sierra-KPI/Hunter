@@ -13,8 +13,8 @@ namespace Hunter.Model.HunterGame
         {
             for (var i = 0; i < rabbits; i++)
             {
-                int xPos = new Random().Next(-3, 3);
-                int yPos = new Random().Next(-3, 3);
+                int xPos = new Random().Next(-3, 4);
+                int yPos = new Random().Next(-3, 4);
 
                 Rabbit rabbit = new Rabbit
                 {

@@ -6,14 +6,12 @@ public static class Behaviours
 {
     private static readonly Random s_random = new();
     private static readonly float s_circleDistance = 10;
-    private static readonly float s_circleRadius = 1;
-    private static readonly float s_maxDisplacement = 1;
+    private static readonly float s_circleRadius = 4;
+    private static readonly float s_maxDisplacement = 3;
 
     public static Vector2 Wander(Animal entity)
     {
-        Vector2 circleCenter = entity.Velocity;
-        circleCenter = Vector2.Normalize(circleCenter);
-        circleCenter *= s_circleDistance;
+        Vector2 circleCenter = GetCircleCenter(entity.Velocity);
 
         Vector2 displacement = new Vector2(s_maxDisplacement,
             s_maxDisplacement);
@@ -33,9 +31,18 @@ public static class Behaviours
         return desiredVelocity;
     }
 
+    private static Vector2 GetCircleCenter(Vector2 velocity)
+    {
+        Vector2 circleCenter = velocity;
+        circleCenter = Vector2.Normalize(circleCenter);
+
+        return circleCenter *= s_circleDistance;
+    }
+
     private static float GetRandomAngle(float wanderAngle, float vectorlength)
     {
         int randValue = s_random.Next(0, 1);
+
         if (randValue == 0)
         {
             return (float)Math.Cos(wanderAngle * vectorlength);

@@ -30,7 +30,7 @@ namespace Hunter.Model.Entities
                 yPos += 0.1f;
             }
 
-            WanderAngle = random.Next(-1, 1);
+            WanderAngle = random.Next(-1, 2);
             Velocity = new Vector2(xPos, yPos);
         }
     }
