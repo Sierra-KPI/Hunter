@@ -470,3 +470,4 @@ Hunter/UserSettings
 
 *.csproj
 *.csproj.user
+Hunter\Model.csproj
