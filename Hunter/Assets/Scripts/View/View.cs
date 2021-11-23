@@ -15,17 +15,10 @@ public class View : MonoBehaviour
     [SerializeField]
     private int _rabbitsNumber;
     [SerializeField]
-    private Sprite _rabbitsSprite;
-    [SerializeField]
-    private Color _rabbitsColor;
-    [SerializeField]
-    [TextArea]
-    private string _rabbitsName;
+    private GameObject _rabbitsPrefab;
     [SerializeField]
     [TextArea]
     private string _rabbitsParentName;
-    [SerializeField]
-    private Vector3 _rabbitsSize;
 
     private void Start()
     {
@@ -46,21 +39,13 @@ public class View : MonoBehaviour
 
         foreach (Entity entity in _game.Rabbits)
         {
-            GameObject entityObject = new GameObject();
-            entityObject.transform.parent = rabbitsParent.transform;
-
-            SpriteRenderer entitySpriteRenderer =
-                entityObject.AddComponent<SpriteRenderer>();
-            entitySpriteRenderer.sprite = _rabbitsSprite;
-            entitySpriteRenderer.color = _rabbitsColor;
+            GameObject entityObject = Instantiate(_rabbitsPrefab,
+                rabbitsParent.transform);
 
             float xPosition = entity.Position.X;
             float yPosition = entity.Position.Y;
             entityObject.transform.localPosition =
                 new Vector3(xPosition, yPosition);
-
-            entityObject.name = _rabbitsName;
-            entityObject.transform.localScale = _rabbitsSize;
 
             _entities.Add(entity, entityObject);
         }
