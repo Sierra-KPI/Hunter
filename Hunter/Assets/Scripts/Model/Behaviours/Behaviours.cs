@@ -20,6 +20,8 @@ public static class Behaviours
         displacement *= s_circleRadius;
 
         float vectorlength = displacement.Length();
+
+        // TO-DO: randomise these methods (sometime to use cos, sometime - sin)
         displacement.X = (float)Math.Cos(entity.WanderAngle * vectorlength);
         displacement.Y = (float)Math.Sin(entity.WanderAngle * vectorlength);
 
