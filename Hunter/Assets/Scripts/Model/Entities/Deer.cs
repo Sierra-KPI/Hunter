@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Hunter.Model.Entities
 {
-    class Deer : Animal
+    public class Deer : Animal
     {
         public float RunSpeed { get; set; }
 

@@ -20,9 +20,19 @@ public class View : MonoBehaviour
     [TextArea]
     private string _rabbitsParentName;
 
+    [Header("Deers")]
+    [Range(0, 10)]
+    [SerializeField]
+    private int _deersNumber;
+    [SerializeField]
+    private GameObject _deersPrefab;
+    [SerializeField]
+    [TextArea]
+    private string _deersParentName;
+
     private void Start()
     {
-        _game = new(_rabbitsNumber, 0, 0);
+        _game = new(_rabbitsNumber, _deersNumber, 0);
 
         CreateEntities();
     }
@@ -48,6 +58,32 @@ public class View : MonoBehaviour
                 new Vector3(xPosition, yPosition);
 
             _entities.Add(entity, entityObject);
+        }
+    }
+
+    private void CreateEntitiesDeers()
+    {
+        GameObject deersParent = new GameObject
+        {
+            name = _deersParentName
+        };
+        deersParent.transform.parent = transform;
+
+        foreach (Herd herd in _game.HerdsOfDeer)
+        {
+            foreach (Entity entity in herd.Deers)
+            {
+                GameObject entityObject = Instantiate(_deersPrefab,
+                deersParent.transform);
+
+                float xPosition = entity.Position.X;
+                float yPosition = entity.Position.Y;
+                entityObject.transform.localPosition =
+                    new Vector3(xPosition, yPosition);
+
+                _entities.Add(entity, entityObject);
+            }
+
         }
     }
 

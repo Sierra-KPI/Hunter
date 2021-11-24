@@ -5,7 +5,7 @@ namespace Hunter.Model.Entities
 {
     public class Herd : Animal
     {
-        private Deer[] Deers;
+        public Deer[] Deers;
 
         public Herd()
         {
