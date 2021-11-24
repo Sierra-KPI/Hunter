@@ -55,7 +55,7 @@ public static class Behaviours
     {
         Vector2 desiredVelocity = Vector2.Zero;
         desiredVelocity += Cohesion(Deers, currentDeer);
-        //desiredVelocity += Separation(Deers, currentDeer);
+        desiredVelocity += Separation(Deers, currentDeer);
         desiredVelocity += Alignment(Deers, currentDeer);
 
 
@@ -71,7 +71,7 @@ public static class Behaviours
 
         }
         perceivedCentre = perceivedCentre / (Deers.GetLength(0) - 1);
-        return (perceivedCentre - currentDeer.Position) / 10;
+        return (perceivedCentre - currentDeer.Position) / 5;
     }
 
     private static Vector2 Separation(Deer[] Deers, Deer currentDeer)
@@ -81,7 +81,7 @@ public static class Behaviours
         {
             if (deer != currentDeer)
             {
-                if ((deer.Position - currentDeer.Position).Length() < 10)
+                if ((deer.Position - currentDeer.Position).LengthSquared() < 5)
                 {
                     distance = distance - (deer.Position - currentDeer.Position);
                 }
