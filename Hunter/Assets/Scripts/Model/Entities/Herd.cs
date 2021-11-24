@@ -3,9 +3,9 @@
 
 namespace Hunter.Model.Entities
 {
-    class Herd : Animal
+    public class Herd : Animal
     {
-        public Deer[] Deers;
+        private Deer[] Deers;
 
         public Herd()
         {
