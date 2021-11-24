@@ -50,4 +50,62 @@ public static class Behaviours
 
         return (float)Math.Sin(wanderAngle * vectorlength);
     }
+
+    public static Vector2 GetHerdVelocity(Deer[] Deers, Deer currentDeer)
+    {
+        Vector2 desiredVelocity = Vector2.Zero;
+        desiredVelocity += Cohesion(Deers, currentDeer);
+        //desiredVelocity += Separation(Deers, currentDeer);
+        desiredVelocity += Alignment(Deers, currentDeer);
+
+
+        return desiredVelocity;
+    }
+
+    private static Vector2 Cohesion(Deer[] Deers, Deer currentDeer)
+    {
+        Vector2 perceivedCentre = Vector2.Zero;
+        foreach (var deer in Deers)
+        {
+            if (deer != currentDeer) perceivedCentre += deer.Position;
+
+        }
+        perceivedCentre = perceivedCentre / (Deers.GetLength(0) - 1);
+        return (perceivedCentre - currentDeer.Position) / 10;
+    }
+
+    private static Vector2 Separation(Deer[] Deers, Deer currentDeer)
+    {
+        Vector2 distance = Vector2.Zero;
+        foreach (var deer in Deers)
+        {
+            if (deer != currentDeer)
+            {
+                if ((deer.Position - currentDeer.Position).Length() < 10)
+                {
+                    distance = distance - (deer.Position - currentDeer.Position);
+                }
+            }
+
+        }
+        return distance;
+    }
+
+    private static Vector2 Alignment(Deer[] Deers, Deer currentDeer)
+    {
+        Vector2 perceivedVelocity = Vector2.Zero;
+
+        foreach (var deer in Deers)
+        {
+            if (deer != currentDeer) perceivedVelocity += deer.Velocity;
+
+        }
+        perceivedVelocity = perceivedVelocity / (Deers.GetLength(0) - 1);
+
+        return (perceivedVelocity - currentDeer.Velocity) / 8;
+    }
+
+
+
+
 }

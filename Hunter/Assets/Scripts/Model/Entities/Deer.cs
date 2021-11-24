@@ -19,5 +19,13 @@ namespace Hunter.Model.Entities
             Position += Velocity;
         }
 
+        public void Move(Deer[] Deers)
+        {
+            Vector2 wander = Behaviours.Wander(this);
+            Vector2 steering = Behaviours.GetHerdVelocity(Deers, this);
+            Velocity = Vector2.Multiply(Velocity + steering + wander, MaxSpeed);
+            Position += Velocity;
+        }
+
     }
 }

@@ -22,7 +22,7 @@ namespace Hunter.Model.Entities
         {
             foreach (var deer in Deers)
             {
-                deer.Move();
+                deer.Move(Deers);
             }
         }
 
