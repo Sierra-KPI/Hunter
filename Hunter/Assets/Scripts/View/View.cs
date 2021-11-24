@@ -35,6 +35,7 @@ public class View : MonoBehaviour
         _game = new(_rabbitsNumber, _deersNumber, 0);
 
         CreateEntities();
+        CreateEntitiesDeers();
     }
 
     // TO-DO: use some generic type to create all entities using this

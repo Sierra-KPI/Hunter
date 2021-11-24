@@ -170,6 +170,9 @@ MonoBehaviour:
   _rabbitsNumber: 9
   _rabbitsPrefab: {fileID: 2939507886603013002, guid: d3ad172ed70f4384cba812e4946941c1, type: 3}
   _rabbitsParentName: 
+  _deersNumber: 3
+  _deersPrefab: {fileID: 2939507886603013002, guid: 0f79601e1ddf3f74fb35a9cead0caf70, type: 3}
+  _deersParentName: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
