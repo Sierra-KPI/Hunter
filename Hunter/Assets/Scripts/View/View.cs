@@ -72,7 +72,7 @@ public class View : MonoBehaviour
 
         foreach (Herd herd in _game.HerdsOfDeer)
         {
-            foreach (Entity entity in herd.Deers)
+            foreach (Entity entity in herd.GetAnimals())
             {
                 GameObject entityObject = Instantiate(_deersPrefab,
                 deersParent.transform);
