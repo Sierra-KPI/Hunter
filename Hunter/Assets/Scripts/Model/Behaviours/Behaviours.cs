@@ -51,39 +51,39 @@ public static class Behaviours
         return (float)Math.Sin(wanderAngle * vectorlength);
     }
 
-    public static Vector2 GetHerdVelocity(Deer[] Deers, Deer currentDeer)
+    public static Vector2 GetHerdVelocity(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
     {
         Vector2 desiredVelocity = Vector2.Zero;
-        desiredVelocity += Cohesion(Deers, currentDeer);
-        desiredVelocity += Separation(Deers, currentDeer);
-        desiredVelocity += Alignment(Deers, currentDeer);
+        desiredVelocity += Cohesion(herdAnimals, currentAnimal);
+        desiredVelocity += Separation(herdAnimals, currentAnimal);
+        desiredVelocity += Alignment(herdAnimals, currentAnimal);
 
 
         return desiredVelocity;
     }
 
-    private static Vector2 Cohesion(Deer[] Deers, Deer currentDeer)
+    private static Vector2 Cohesion(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
     {
         Vector2 perceivedCentre = Vector2.Zero;
-        foreach (var deer in Deers)
+        foreach (HerdAnimal animal in herdAnimals)
         {
-            if (deer != currentDeer) perceivedCentre += deer.Position;
+            if (animal != currentAnimal) perceivedCentre += animal.Position;
 
         }
-        perceivedCentre = perceivedCentre / (Deers.GetLength(0) - 1);
-        return (perceivedCentre - currentDeer.Position) / 5;
+        perceivedCentre = perceivedCentre / (herdAnimals.GetLength(0) - 1);
+        return (perceivedCentre - currentAnimal.Position) / 5;
     }
 
-    private static Vector2 Separation(Deer[] Deers, Deer currentDeer)
+    private static Vector2 Separation(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
     {
         Vector2 distance = Vector2.Zero;
-        foreach (var deer in Deers)
+        foreach (HerdAnimal animal in herdAnimals)
         {
-            if (deer != currentDeer)
+            if (animal != currentAnimal)
             {
-                if ((deer.Position - currentDeer.Position).LengthSquared() < 5)
+                if ((animal.Position - currentAnimal.Position).LengthSquared() < 5)
                 {
-                    distance = distance - (deer.Position - currentDeer.Position);
+                    distance = distance - (animal.Position - currentAnimal.Position);
                 }
             }
 
@@ -91,18 +91,18 @@ public static class Behaviours
         return distance;
     }
 
-    private static Vector2 Alignment(Deer[] Deers, Deer currentDeer)
+    private static Vector2 Alignment(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
     {
         Vector2 perceivedVelocity = Vector2.Zero;
 
-        foreach (var deer in Deers)
+        foreach (HerdAnimal animal in herdAnimals)
         {
-            if (deer != currentDeer) perceivedVelocity += deer.Velocity;
+            if (animal != currentAnimal) perceivedVelocity += animal.Velocity;
 
         }
-        perceivedVelocity = perceivedVelocity / (Deers.GetLength(0) - 1);
+        perceivedVelocity = perceivedVelocity / (herdAnimals.GetLength(0) - 1);
 
-        return (perceivedVelocity - currentDeer.Velocity) / 8;
+        return (perceivedVelocity - currentAnimal.Velocity) / 8;
     }
 
 
