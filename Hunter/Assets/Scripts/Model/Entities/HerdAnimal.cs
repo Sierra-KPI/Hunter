@@ -11,7 +11,7 @@ namespace Hunter.Model.Entities
 
 
         public override void Move() {}
-        public abstract void MoveInHerd(Animal[] animals);
+        public abstract void MoveInHerd(HerdAnimal[] animals);
 
     }
 }

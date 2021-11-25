@@ -5,26 +5,28 @@ namespace Hunter.Model.Entities
 {
     public class Herd : Animal
     {
-        public Deer[] Deers;
+        private HerdAnimal[] _animals;
 
         public Herd()
         {
-            int numberOfDeers = new Random().Next(3, 10);
-            Deers = new Deer[numberOfDeers];
-            for (var i = 0; i < numberOfDeers; i++)
+            int numberOfAnimals = new Random().Next(3, 10);
+            _animals = new Deer[numberOfAnimals]; // to fix
+            for (var i = 0; i < numberOfAnimals; i++)
             {
-                Deers[i] = new Deer();
+                _animals[i] = new Deer();
             }
 
         }
 
         public override void Move()
         {
-            foreach (var deer in Deers)
+            foreach (HerdAnimal deer in _animals)
             {
-                deer.Move(Deers);
+                deer.MoveInHerd(_animals);
             }
         }
+
+        public HerdAnimal[] GetAnimals() => _animals;
 
     }
 }

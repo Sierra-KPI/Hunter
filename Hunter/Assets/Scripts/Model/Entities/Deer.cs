@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Hunter.Model.Entities
 {
-    public class Deer : Animal
+    public class Deer : HerdAnimal
     {
         public float RunSpeed { get; set; }
 
@@ -12,14 +12,7 @@ namespace Hunter.Model.Entities
             MaxSpeed = 1f * 0.001f;
         }
 
-        public override void Move()
-        {
-            Vector2 steering = Behaviours.Wander(this);
-            Velocity = Vector2.Multiply(Velocity + steering, MaxSpeed);
-            Position += Velocity;
-        }
-
-        public void Move(Deer[] Deers)
+        public override void MoveInHerd(HerdAnimal[] Deers)
         {
             Vector2 wander = Behaviours.Wander(this);
             Vector2 steering = Behaviours.GetHerdVelocity(Deers, this);
