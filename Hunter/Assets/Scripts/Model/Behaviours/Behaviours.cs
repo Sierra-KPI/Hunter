@@ -54,58 +54,38 @@ public static class Behaviours
     public static Vector2 GetHerdVelocity(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
     {
         Vector2 desiredVelocity = Vector2.Zero;
-        desiredVelocity += Cohesion(herdAnimals, currentAnimal);
-        desiredVelocity += Separation(herdAnimals, currentAnimal);
-        desiredVelocity += Alignment(herdAnimals, currentAnimal);
 
-
-        return desiredVelocity;
-    }
-
-    private static Vector2 Cohesion(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
-    {
+        Vector2 cohesion = Vector2.Zero;
         Vector2 perceivedCentre = Vector2.Zero;
-        foreach (HerdAnimal animal in herdAnimals)
-        {
-            if (animal != currentAnimal) perceivedCentre += animal.Position;
 
-        }
-        perceivedCentre = perceivedCentre / (herdAnimals.GetLength(0) - 1);
-        return (perceivedCentre - currentAnimal.Position) / 5;
-    }
+        Vector2 separation = Vector2.Zero;
 
-    private static Vector2 Separation(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
-    {
-        Vector2 distance = Vector2.Zero;
-        foreach (HerdAnimal animal in herdAnimals)
-        {
-            if (animal != currentAnimal)
-            {
-                if ((animal.Position - currentAnimal.Position).LengthSquared() < 5)
-                {
-                    distance = distance - (animal.Position - currentAnimal.Position);
-                }
-            }
-
-        }
-        return distance;
-    }
-
-    private static Vector2 Alignment(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
-    {
+        Vector2 alignment = Vector2.Zero;
         Vector2 perceivedVelocity = Vector2.Zero;
 
         foreach (HerdAnimal animal in herdAnimals)
         {
-            if (animal != currentAnimal) perceivedVelocity += animal.Velocity;
+            if (animal != currentAnimal)
+            {
+                perceivedCentre += animal.Position;
 
+                if ((animal.Position - currentAnimal.Position).LengthSquared() < 5)
+                {
+                    separation = separation - (animal.Position - currentAnimal.Position);
+                }
+
+                perceivedVelocity += animal.Velocity;
+            }
         }
+
+        perceivedCentre = perceivedCentre / (herdAnimals.GetLength(0) - 1);
+        cohesion = (perceivedCentre - currentAnimal.Position) / 5;
+
         perceivedVelocity = perceivedVelocity / (herdAnimals.GetLength(0) - 1);
+        alignment = (perceivedVelocity - currentAnimal.Velocity) / 8;
 
-        return (perceivedVelocity - currentAnimal.Velocity) / 8;
+        return desiredVelocity + cohesion + separation + alignment;
     }
-
-
 
 
 }
