@@ -164,12 +164,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 358598603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7423bf4024a961a408a896f2480f0664, type: 3}
+  m_Script: {fileID: 11500000, guid: b312d4616355fcb449e7b960bf7e5ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rabbitsNumber: 50
-  _rabbitsPrefab: {fileID: 2939507886603013002, guid: 597a91cef0c335f40ac900a72b027d7a, type: 3}
-  _rabbitsParentName: Rabbits
+  _rabbitsNumber: 9
+  _rabbitsPrefab: {fileID: 2939507886603013002, guid: d3ad172ed70f4384cba812e4946941c1, type: 3}
+  _rabbitsParentName: 
+  _deersNumber: 3
+  _deersPrefab: {fileID: 2939507886603013002, guid: 0f79601e1ddf3f74fb35a9cead0caf70, type: 3}
+  _deersParentName: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
