@@ -53,6 +53,10 @@ public static class Behaviours
 
     public static Vector2 GetHerdVelocity(HerdAnimal[] herdAnimals, HerdAnimal currentAnimal)
     {
+        float distance = 2f;
+        float cohesionIndex = 0.2f;
+        float alignmentIndex = 0.25f;
+
         Vector2 desiredVelocity = Vector2.Zero;
 
         Vector2 cohesion = Vector2.Zero;
@@ -69,7 +73,7 @@ public static class Behaviours
             {
                 perceivedCentre += animal.Position;
 
-                if ((animal.Position - currentAnimal.Position).LengthSquared() < 5)
+                if ((animal.Position - currentAnimal.Position).LengthSquared() < distance)
                 {
                     separation = separation - (animal.Position - currentAnimal.Position);
                 }
@@ -79,10 +83,10 @@ public static class Behaviours
         }
 
         perceivedCentre = perceivedCentre / (herdAnimals.GetLength(0) - 1);
-        cohesion = (perceivedCentre - currentAnimal.Position) / 5;
+        cohesion = (perceivedCentre - currentAnimal.Position) * cohesionIndex;
 
         perceivedVelocity = perceivedVelocity / (herdAnimals.GetLength(0) - 1);
-        alignment = (perceivedVelocity - currentAnimal.Velocity) / 8;
+        alignment = (perceivedVelocity - currentAnimal.Velocity) * alignmentIndex;
 
         return desiredVelocity + cohesion + separation + alignment;
     }
