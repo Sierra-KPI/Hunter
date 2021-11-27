@@ -467,3 +467,7 @@ crashlytics-build.properties
 Hunter/Library
 Hunter/Temp
 Hunter/UserSettings
+
+*.csproj
+*.csproj.user
+*.vsconfig
