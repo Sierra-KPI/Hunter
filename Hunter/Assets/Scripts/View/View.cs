@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using Hunter.Model;
 using Hunter.Model.Entities;
 using Hunter.Model.HunterGame;
+using System.Linq;
 using UnityEngine;
 
 public class View : MonoBehaviour
 {
     private HunterGame _game;
-    private Dictionary<Entity, GameObject> _entities = new();
+    private readonly Dictionary<Entity, GameObject> _entities = new();
 
     [Header("Game Settings")]
 
@@ -93,6 +95,14 @@ public class View : MonoBehaviour
         _game.Update();
 
         ChangeGameObjectsPositions();
+
+        // just for debugging
+        //if (CollisionDetection.AreColliding(_entities.ElementAt(0).Key,
+        //    _entities.ElementAt(1).Key))
+        //{
+        //    Debug.Log(_entities.ElementAt(0).Key);
+        //    Debug.Log("Colliding");
+        //}
     }
 
     private void ChangeGameObjectsPositions()
