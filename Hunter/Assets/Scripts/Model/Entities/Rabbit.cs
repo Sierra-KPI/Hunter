@@ -1,4 +1,5 @@
 using System.Numerics;
+using Hunter.Model.Behaviours;
 
 namespace Hunter.Model.Entities
 {
@@ -9,11 +10,14 @@ namespace Hunter.Model.Entities
         public Rabbit() : base()
         {
             MaxSpeed = 2 * 0.001f;
+            WanderCircleDistance = 10;
+            WanderCircleRadius = 4;
+            MaxWanderShift = 3;
         }
 
         public override void Move()
         {
-            Vector2 steering = Behaviours.Wander(this);
+            Vector2 steering = WanderBehaviour.Wander(this);
             Velocity = Vector2.Multiply(Velocity + steering, MaxSpeed);
             Position += Velocity;
         }

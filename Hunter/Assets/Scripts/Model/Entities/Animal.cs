@@ -9,7 +9,10 @@ namespace Hunter.Model.Entities
         public float BoardSeekRadius { get; set; }
         public float BodySeekRadius { get; set; }
         public List<Entity> Entities = new();
+        public float WanderCircleDistance { get; set; }
+        public float WanderCircleRadius { get; set; }
         public float WanderAngle { get; set; }
+        public float MaxWanderShift { get; set; }
 
         public Animal()
         {
