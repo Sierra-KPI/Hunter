@@ -95,14 +95,6 @@ public class View : MonoBehaviour
         _game.Update();
 
         ChangeGameObjectsPositions();
-
-        // just for debugging
-        //if (CollisionDetection.AreColliding(_entities.ElementAt(0).Key,
-        //    _entities.ElementAt(1).Key))
-        //{
-        //    Debug.Log(_entities.ElementAt(0).Key);
-        //    Debug.Log("Colliding");
-        //}
     }
 
     private void ChangeGameObjectsPositions()
