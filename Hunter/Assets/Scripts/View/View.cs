@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using Hunter.Model;
 using Hunter.Model.Entities;
 using Hunter.Model.HunterGame;
+using System.Linq;
 using UnityEngine;
 
 public class View : MonoBehaviour
 {
     private HunterGame _game;
-    private Dictionary<Entity, GameObject> _entities = new();
+    private readonly Dictionary<Entity, GameObject> _entities = new();
 
     [Header("Game Settings")]
 
