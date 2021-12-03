@@ -25,5 +25,28 @@ namespace Hunter.Model.HunterGame
                 }
             }
         }
+
+
+        public List<Animal> GetAnimals(AnimalType animalType)
+        {
+            List<Animal> animals = new();
+            switch (animalType)
+            {
+                case AnimalType.Rabbit:
+                    animals = Animals[animalType];
+                    break;
+                case AnimalType.Deer:
+                    foreach (Herd herd in Animals[animalType])
+                    {
+                        foreach (Animal anim in herd.GetAnimals())
+                        {
+                            animals.Add(anim);
+                        }
+                    }
+                    break;
+            }
+            return animals;
+        }
+
     }
 }

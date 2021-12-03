@@ -71,7 +71,7 @@ public class View : MonoBehaviour
         foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
             //List<Animal> listOfAnimals = _game.Animals[animalType];
-            List<Animal> animals = GetAnimals(animalType);
+            List<Animal> animals = _game.GetAnimals(animalType);
             foreach (Animal anim in animals)
             {
                 GameObject entityObject = _entityFactory.GetEntity(animalType, anim);
@@ -79,27 +79,6 @@ public class View : MonoBehaviour
                 _entities.Add(anim, entityObject);
             }
         }
-    }
-
-    private List<Animal> GetAnimals(AnimalType animalType)
-    {
-        List<Animal> animals = new();
-        switch (animalType)
-        {
-            case AnimalType.Rabbit:
-                animals = _game.Animals[animalType];
-                break;
-            case AnimalType.Deer:
-                foreach (Herd herd in _game.Animals[animalType])
-                {
-                    foreach (Animal anim in herd.GetAnimals())
-                    {
-                        animals.Add(anim);
-                    }
-                }
-                break;
-        }
-        return animals;
     }
 
     private void Update()
