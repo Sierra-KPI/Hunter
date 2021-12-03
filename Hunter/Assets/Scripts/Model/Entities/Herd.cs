@@ -6,15 +6,15 @@ namespace Hunter.Model.Entities
 {
     public class Herd : Animal
     {
-        private HerdAnimal[] _animals;
+        private HerdAnimal[] _animalsOfHerd;
 
         public Herd()
         {
             int numberOfAnimals = new Random().Next(3, 10);
-            _animals = new Deer[numberOfAnimals]; // to fix
+            _animalsOfHerd = new Deer[numberOfAnimals]; // to fix
             for (var i = 0; i < numberOfAnimals; i++)
             {
-                _animals[i] = new Deer();
+                _animalsOfHerd[i] = new Deer();
             }
 
         }
@@ -40,13 +40,13 @@ namespace Hunter.Model.Entities
 
         public override void Move()
         {
-            foreach (HerdAnimal deer in _animals)
+            foreach (HerdAnimal deer in _animalsOfHerd)
             {
-                deer.MoveInHerd(_animals);
+                deer.MoveInHerd(_animalsOfHerd);
             }
         }
 
-        public HerdAnimal[] GetAnimals() => _animals;
+        public HerdAnimal[] GetAnimals() => _animalsOfHerd;
 
     }
 }
