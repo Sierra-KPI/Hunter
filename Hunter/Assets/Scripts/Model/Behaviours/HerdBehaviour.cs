@@ -4,24 +4,18 @@ using Hunter.Model.Entities;
 
 namespace Hunter.Model.Behaviours
 {
-    public static class HerdBehaviour
+    public class HerdBehaviour
     {
+
+        private static float _distance = 2f;
+        private static float _cohesionCoef = 0.2f;
+        private static float _alignmentCoef = 0.25f;
 
         public static Vector2 GetHerdVelocity(HerdAnimal[] herdAnimals,
             HerdAnimal currentAnimal)
         {
-            float distance = 2f;
-            float cohesionIndex = 0.2f;
-            float alignmentIndex = 0.25f;
-
-            Vector2 desiredVelocity = Vector2.Zero;
-
-            Vector2 cohesion = Vector2.Zero;
             Vector2 perceivedCentre = Vector2.Zero;
-
             Vector2 separation = Vector2.Zero;
-
-            Vector2 alignment = Vector2.Zero;
             Vector2 perceivedVelocity = Vector2.Zero;
 
             foreach (HerdAnimal animal in herdAnimals)
@@ -31,7 +25,7 @@ namespace Hunter.Model.Behaviours
                     perceivedCentre += animal.Position;
 
                     if ((animal.Position -
-                        currentAnimal.Position).LengthSquared() < distance)
+                        currentAnimal.Position).LengthSquared() < _distance)
                     {
                         separation -= (animal.Position -
                             currentAnimal.Position);
@@ -42,14 +36,14 @@ namespace Hunter.Model.Behaviours
             }
 
             perceivedCentre /= herdAnimals.GetLength(0) - 1;
-            cohesion = (perceivedCentre -
-                currentAnimal.Position) * cohesionIndex;
+            Vector2 cohesion = (perceivedCentre -
+                currentAnimal.Position) * _cohesionCoef;
 
             perceivedVelocity /= (herdAnimals.GetLength(0) - 1);
-            alignment = (perceivedVelocity -
-                currentAnimal.Velocity) * alignmentIndex;
+            Vector2 alignment = (perceivedVelocity -
+                currentAnimal.Velocity) * _alignmentCoef;
 
-            return desiredVelocity + cohesion + separation + alignment;
+            return cohesion + separation + alignment;
         }
     }
 }

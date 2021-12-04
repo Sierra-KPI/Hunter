@@ -18,7 +18,7 @@ namespace Hunter.Model.Entities
         public override void MoveInHerd(HerdAnimal[] Deers)
         {
             Vector2 wander = WanderBehaviour.Wander(this);
-            Vector2 steering = WanderBehaviour.GetHerdVelocity(Deers, this);
+            Vector2 steering = HerdBehaviour.GetHerdVelocity(Deers, this);
             Velocity = Vector2.Multiply(Velocity + steering + wander, MaxSpeed);
             Position += Velocity;
         }
