@@ -14,8 +14,8 @@ public class View : MonoBehaviour
     [Header("Game Settings")]
 
     [Header("Rabbits")]
-    [Range(0, 50)]
-    [SerializeField]
+    //[Range(0, 50)]
+    //[SerializeField]
     private int _rabbitsNumber;
     [SerializeField]
     private GameObject _rabbitsPrefab;
@@ -24,8 +24,8 @@ public class View : MonoBehaviour
     private string _rabbitsParentName;
 
     [Header("Deers")]
-    [Range(0, 10)]
-    [SerializeField]
+    //[Range(0, 10)]
+    //[SerializeField]
     private int _deersNumber;
     [SerializeField]
     private GameObject _deersPrefab;
@@ -41,6 +41,9 @@ public class View : MonoBehaviour
 
     private void Start()
     {
+        _rabbitsNumber = PlayerPrefs.GetInt("RabbitsSlider");
+        _deersNumber = PlayerPrefs.GetInt("DeersSlider");
+
         _game = new(_rabbitsNumber, _deersNumber, 0);
 
         CreateEntityObjects();
