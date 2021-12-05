@@ -33,6 +33,9 @@ public class View : MonoBehaviour
     [TextArea]
     private string _deersParentName;
 
+    [Header("Wolves")]
+    private int _wolvesNumber;
+
     private void Awake()
     {
         _entityFactory = new EntityFactory();
@@ -41,10 +44,14 @@ public class View : MonoBehaviour
 
     private void Start()
     {
-        _rabbitsNumber = PlayerPrefs.GetInt("RabbitsSlider");
-        _deersNumber = PlayerPrefs.GetInt("DeersSlider");
+        //_rabbitsNumber = PlayerPrefs.GetInt("RabbitsSlider");
+        //_deersNumber = PlayerPrefs.GetInt("DeersSlider");
 
-        _game = new(_rabbitsNumber, _deersNumber, 0);
+        _rabbitsNumber = EntityFactory.AnimalsNumber["Rabbits"];
+        _deersNumber = EntityFactory.AnimalsNumber["Deers"];
+        _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
+
+        _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
 
         CreateEntityObjects();
         CreateEntities();

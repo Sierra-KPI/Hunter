@@ -18,6 +18,8 @@ public class EntityObject
 
 class EntityFactory : MonoBehaviour
 {
+    public static Dictionary<string, int> AnimalsNumber = new();
+
     public List<EntityObject> EntityObjects;
     public Dictionary<AnimalType, Queue<GameObject>> EntityDictionary = new();
 
