@@ -36,5 +36,21 @@ namespace Hunter.Model.Entities
             WanderAngle = random.Next(-1, 2);
             Velocity = new Vector2(xPos, yPos);
         }
+
+        public void GetAnimalsInArea(List<Entity> allEntities)
+        {
+            List<Entity> areaEntities = new List<Entity>();
+
+            foreach (Entity entity in allEntities)
+            {
+                if (CollisionDetection.AreColliding(this, entity,
+                    BodySeekRadius, entity.BodyRadius))
+                {
+                    areaEntities.Add(entity);
+                }
+            }
+
+            Entities = areaEntities;
+        }
     }
 }

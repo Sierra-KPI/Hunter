@@ -37,7 +37,7 @@ public class View : MonoBehaviour
 
     private void Awake()
     {
-        _entityFactory = new EntityFactory();
+        _entityFactory = gameObject.AddComponent<EntityFactory>();
     }
 
     private void Start()
