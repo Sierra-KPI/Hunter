@@ -16,12 +16,11 @@ namespace Hunter.Model.Entities
             {
                 _animals[i] = new Deer();
             }
-
         }
 
-        public static List<Animal> CreateAnimals(int numberOfHerds)
+        public static List<Entity> CreateEntities(int numberOfHerds)
         {
-            var herds = new List<Animal>();
+            var herds = new List<Entity>();
             for (var i = 0; i < numberOfHerds; i++)
             {
                 int xPos = new Random().Next(-3, 4);

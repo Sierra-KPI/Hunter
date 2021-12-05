@@ -15,14 +15,17 @@ namespace Hunter.Model.Entities
             BodyRadius = 0.25f; // If size in unity = 3,
                                 // then divide it by 12 and
                                 // You'll get BodyRadius
+            BodySeekRadius = 3; // if seek radius in AnimalGizmos
+                                // is 5, then divide it by 1,6
+                                // and You'll get BodySeekRadius
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;
         }
 
-        public static List<Animal> CreateAnimals(int numberOfRabbits)
+        public static List<Entity> CreateEntities(int numberOfRabbits)
         {
-            var rabbits = new List<Animal>();
+            var rabbits = new List<Entity>();
             for (var i = 0; i < numberOfRabbits; i++)
             {
                 int xPos = new Random().Next(-3, 4);
@@ -36,6 +39,7 @@ namespace Hunter.Model.Entities
 
                 rabbits.Add(rabbit);
             }
+
             return rabbits;
         }
 
