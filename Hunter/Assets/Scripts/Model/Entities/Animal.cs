@@ -37,14 +37,14 @@ namespace Hunter.Model.Entities
             Velocity = new Vector2(xPos, yPos);
         }
 
-        public void GetAnimalsInArea(List<Entity> allEntities)
+        public void GetEntititesInArea(List<Entity> allEntities)
         {
             List<Entity> areaEntities = new List<Entity>();
 
             foreach (Entity entity in allEntities)
             {
                 if (CollisionDetection.AreColliding(this, entity,
-                    BodySeekRadius, entity.BodyRadius))
+                    BodySeekRadius, entity.BodyRadius) && this != entity)
                 {
                     areaEntities.Add(entity);
                 }

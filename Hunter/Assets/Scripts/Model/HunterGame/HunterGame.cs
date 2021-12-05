@@ -1,52 +1,51 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Hunter.Model.Entities;
 
 namespace Hunter.Model.HunterGame
 {
     public class HunterGame
     {
-        public Dictionary<AnimalType, List<Animal>> Animals = new();
+        public Dictionary<AnimalType, List<Entity>> Entities = new();
 
         public HunterGame(int rabbits, int deers, int wolfs)
         {
-            Animals.Add(AnimalType.Rabbit, Rabbit.CreateAnimals(rabbits));
-            Animals.Add(AnimalType.Deer, Herd.CreateAnimals(deers));
-
+            Entities.Add(AnimalType.Rabbit, Rabbit.CreateEntities(rabbits));
+            Entities.Add(AnimalType.Deer, Herd.CreateEntities(deers));
         }
 
         public void Update()
         {
             foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
             {
-                foreach (Animal animal in Animals[animalType])
+                foreach (Animal animal in Entities[animalType])
                 {
                     animal.Move();
+                    animal.GetEntititesInArea(Entities.SelectMany(d => d.Value).ToList());
                 }
             }
         }
 
-
-        public List<Animal> GetAnimals(AnimalType animalType)
+        public List<Entity> GetAnimals(AnimalType animalType)
         {
-            List<Animal> animals = new();
+            List<Entity> entities = new();
             switch (animalType)
             {
                 case AnimalType.Rabbit:
-                    animals = Animals[animalType];
+                    entities = Entities[animalType];
                     break;
                 case AnimalType.Deer:
-                    foreach (Herd herd in Animals[animalType])
+                    foreach (Herd herd in Entities[animalType])
                     {
                         foreach (Animal anim in herd.GetAnimals())
                         {
-                            animals.Add(anim);
+                            entities.Add(anim);
                         }
                     }
                     break;
             }
-            return animals;
+            return entities;
         }
-
     }
 }
