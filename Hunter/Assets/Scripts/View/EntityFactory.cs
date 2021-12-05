@@ -72,11 +72,9 @@ class EntityFactory : MonoBehaviour
         return entityObject;
     }
 
-
     public void ReturnEntity(GameObject entityObject, AnimalType animal)
     {
         entityObject.SetActive(false);
         EntityDictionary[animal].Enqueue(entityObject);
     }
-
 }

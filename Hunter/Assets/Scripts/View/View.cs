@@ -1,9 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Hunter.Model;
 using Hunter.Model.Entities;
 using Hunter.Model.HunterGame;
 using UnityEngine;
-using System;
 
 public class View : MonoBehaviour
 {
@@ -39,7 +38,6 @@ public class View : MonoBehaviour
     private void Awake()
     {
         _entityFactory = new EntityFactory();
-
     }
 
     private void Start()

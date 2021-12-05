@@ -1,5 +1,3 @@
-using System;
-using Hunter.Model.Entities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
