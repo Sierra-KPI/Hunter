@@ -18,6 +18,8 @@ public class EntityObject
 
 class EntityFactory : MonoBehaviour
 {
+    public static Dictionary<string, int> AnimalsNumber = new();
+
     public List<EntityObject> EntityObjects;
     public Dictionary<AnimalType, Queue<GameObject>> EntityDictionary = new();
 
@@ -70,11 +72,9 @@ class EntityFactory : MonoBehaviour
         return entityObject;
     }
 
-
     public void ReturnEntity(GameObject entityObject, AnimalType animal)
     {
         entityObject.SetActive(false);
         EntityDictionary[animal].Enqueue(entityObject);
     }
-
 }

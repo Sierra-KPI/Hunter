@@ -1,9 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Hunter.Model;
 using Hunter.Model.Entities;
 using Hunter.Model.HunterGame;
 using UnityEngine;
-using System;
 
 public class View : MonoBehaviour
 {
@@ -14,8 +13,8 @@ public class View : MonoBehaviour
     [Header("Game Settings")]
 
     [Header("Rabbits")]
-    [Range(0, 50)]
-    [SerializeField]
+    //[Range(0, 50)]
+    //[SerializeField]
     private int _rabbitsNumber;
     [SerializeField]
     private GameObject _rabbitsPrefab;
@@ -24,8 +23,8 @@ public class View : MonoBehaviour
     private string _rabbitsParentName;
 
     [Header("Deers")]
-    [Range(0, 10)]
-    [SerializeField]
+    //[Range(0, 10)]
+    //[SerializeField]
     private int _deersNumber;
     [SerializeField]
     private GameObject _deersPrefab;
@@ -33,15 +32,24 @@ public class View : MonoBehaviour
     [TextArea]
     private string _deersParentName;
 
+    [Header("Wolves")]
+    private int _wolvesNumber;
+
     private void Awake()
     {
         _entityFactory = new EntityFactory();
-
     }
 
     private void Start()
     {
-        _game = new(_rabbitsNumber, _deersNumber, 0);
+        //_rabbitsNumber = PlayerPrefs.GetInt("RabbitsSlider");
+        //_deersNumber = PlayerPrefs.GetInt("DeersSlider");
+
+        _rabbitsNumber = EntityFactory.AnimalsNumber["Rabbits"];
+        _deersNumber = EntityFactory.AnimalsNumber["Deers"];
+        _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
+
+        _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
 
         CreateEntityObjects();
         CreateEntities();
