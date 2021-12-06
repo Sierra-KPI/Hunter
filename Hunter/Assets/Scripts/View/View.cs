@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
+    private Controller _controller;
     private HunterGame _game;
     private readonly Dictionary<Entity, GameObject> _entities = new();
     private EntityFactory _entityFactory;
@@ -38,14 +39,12 @@ public class View : MonoBehaviour
 
     private void Start()
     {
-        //_rabbitsNumber = PlayerPrefs.GetInt("RabbitsSlider");
-        //_deersNumber = PlayerPrefs.GetInt("DeersSlider");
-
         _rabbitsNumber = EntityFactory.AnimalsNumber["Rabbits"];
         _deersNumber = EntityFactory.AnimalsNumber["Deers"];
         _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
 
         _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
+        _controller = new Controller();
 
         CreateEntityObjects();
         CreateEntities();
@@ -74,7 +73,6 @@ public class View : MonoBehaviour
     {
         foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
-            //List<Animal> listOfAnimals = _game.Animals[animalType];
             List<Entity> animals = _game.GetAnimals(animalType);
             foreach (Animal anim in animals)
             {
@@ -88,6 +86,8 @@ public class View : MonoBehaviour
     private void Update()
     {
         _game.Update();
+
+        _controller.ReadMoves();
 
         ChangeGameObjectsPositions();
     }
@@ -103,4 +103,5 @@ public class View : MonoBehaviour
             keyValue.Value.transform.localPosition = newPosition;
         }
     }
+
 }
