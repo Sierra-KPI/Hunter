@@ -35,7 +35,6 @@ public class MainMenu : MonoBehaviour
         {
             string name = slider.name.Substring(0, slider.name.Length - 6);
             EntityFactory.AnimalsNumber.Add(name, (int)slider.value);
-            //PlayerPrefs.SetInt(slider.name, (int)slider.value);
         }
 
         SceneManager.LoadScene("MainScene");

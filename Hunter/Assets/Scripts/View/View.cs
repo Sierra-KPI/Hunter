@@ -38,9 +38,6 @@ public class View : MonoBehaviour
 
     private void Start()
     {
-        //_rabbitsNumber = PlayerPrefs.GetInt("RabbitsSlider");
-        //_deersNumber = PlayerPrefs.GetInt("DeersSlider");
-
         _rabbitsNumber = EntityFactory.AnimalsNumber["Rabbits"];
         _deersNumber = EntityFactory.AnimalsNumber["Deers"];
         _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
@@ -74,7 +71,6 @@ public class View : MonoBehaviour
     {
         foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
-            //List<Animal> listOfAnimals = _game.Animals[animalType];
             List<Entity> animals = _game.GetAnimals(animalType);
             foreach (Animal anim in animals)
             {

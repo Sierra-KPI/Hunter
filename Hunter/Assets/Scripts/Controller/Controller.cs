@@ -1,5 +1,4 @@
 using UnityEngine;
-using Hunter.Model.Entities;
 
 public class Controller : MonoBehaviour
 {
