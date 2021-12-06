@@ -1,20 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using Hunter.Model.Entities;
 
 public class Controller : MonoBehaviour
 {
 
-    public void Update()
-    {
-
-        HunterControler();
-        MousePosition();
-    }
-
-
-    private void HunterControler()
+    public static void HunterControler()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -34,8 +24,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-
-    private void MousePosition()
+    public static void MousePosition()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

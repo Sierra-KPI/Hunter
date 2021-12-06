@@ -89,6 +89,9 @@ public class View : MonoBehaviour
     {
         _game.Update();
 
+        Controller.HunterControler();
+        Controller.MousePosition();
+
         ChangeGameObjectsPositions();
     }
 
@@ -103,4 +106,5 @@ public class View : MonoBehaviour
             keyValue.Value.transform.localPosition = newPosition;
         }
     }
+
 }
