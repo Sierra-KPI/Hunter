@@ -32,6 +32,10 @@ public class View : MonoBehaviour
     [Header("Wolves")]
     private int _wolvesNumber;
 
+    [Header("Hunter")]
+    [SerializeField]
+    private GameObject _hunterPrefab;
+
     private void Awake()
     {
         _entityFactory = new EntityFactory();
@@ -48,6 +52,13 @@ public class View : MonoBehaviour
 
         CreateEntityObjects();
         CreateEntities();
+        CreateHunter();
+    }
+
+    private void CreateHunter()
+    {
+        GameObject obj = Instantiate(_hunterPrefab);
+        _entities.Add(_game.Hunter, obj);
     }
 
     private void CreateEntityObjects()
@@ -87,7 +98,18 @@ public class View : MonoBehaviour
     {
         _game.Update();
 
-        _controller.ReadMoves();
+        //_controller.ReadMoves();
+
+        (float h, float v) = _controller.HunterControler();
+        Vector3 vectorEnd = _controller.MousePosition();
+        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y); 
+        if (vectorEnd != Vector3.zero && _game.Hunter.MakeShot())
+        {
+            Debug.Log("Make Shot");
+            //vectorEnd = (vectorEnd - vectorStart).normalized * _game.Hunter.ShotDistance;
+            DrawShotLine(vectorStart, vectorEnd);
+        }
+        _game.Hunter.MoveTo(h, v);
 
         ChangeGameObjectsPositions();
     }
@@ -102,6 +124,20 @@ public class View : MonoBehaviour
             Vector3 newPosition = new Vector3(xPos, yPos);
             keyValue.Value.transform.localPosition = newPosition;
         }
+    }
+
+    private void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.5f)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer line = myLine.GetComponent<LineRenderer>();
+        line.startColor = Color.black;
+        line.endColor = Color.black;
+        line.startWidth = 0.05f;
+        line.endWidth = 0.05f;
+        line.SetPositions(new Vector3[] { start, end });
+        Destroy(myLine, duration);
     }
 
 }
