@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
+    private Controller _controller;
     private HunterGame _game;
     private readonly Dictionary<Entity, GameObject> _entities = new();
     private EntityFactory _entityFactory;
@@ -85,8 +86,7 @@ public class View : MonoBehaviour
     {
         _game.Update();
 
-        Controller.HunterControler();
-        Controller.MousePosition();
+        _controller.ReadMoves();
 
         ChangeGameObjectsPositions();
     }
