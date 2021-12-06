@@ -3,7 +3,7 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
 
-    public static void HunterControler()
+    private void HunterControler()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -23,7 +23,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public static void MousePosition()
+    private void MousePosition()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -31,6 +31,12 @@ public class Controller : MonoBehaviour
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
             Debug.Log(worldPosition.x + " " + worldPosition.y);
         }
+    }
+
+    public void ReadMoves()
+    {
+        HunterControler();
+        MousePosition();
     }
 
 }
