@@ -44,6 +44,7 @@ public class View : MonoBehaviour
         _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
 
         _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
+        _controller = new Controller();
 
         CreateEntityObjects();
         CreateEntities();
