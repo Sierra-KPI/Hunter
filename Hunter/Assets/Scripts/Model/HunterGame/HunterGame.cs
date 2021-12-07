@@ -8,11 +8,14 @@ namespace Hunter.Model.HunterGame
     public class HunterGame
     {
         public Dictionary<AnimalType, List<Entity>> Entities = new();
+        public HunterPlayer Hunter;
 
         public HunterGame(int rabbits, int deers, int wolfs)
         {
             Entities.Add(AnimalType.Rabbit, Rabbit.CreateEntities(rabbits));
             Entities.Add(AnimalType.Deer, Herd.CreateEntities(deers));
+
+            Hunter = new HunterPlayer();
         }
 
         public void Update()
