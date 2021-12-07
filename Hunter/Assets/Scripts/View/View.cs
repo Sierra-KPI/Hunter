@@ -50,9 +50,10 @@ public class View : MonoBehaviour
         _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
         _controller = new Controller();
 
+
+        CreateHunter();
         CreateEntityObjects();
         CreateEntities();
-        CreateHunter();
     }
 
     private void CreateHunter()
@@ -102,11 +103,12 @@ public class View : MonoBehaviour
 
         (float h, float v) = _controller.HunterControler();
         Vector3 vectorEnd = _controller.MousePosition();
-        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y); 
+        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
         if (vectorEnd != Vector3.zero && _game.Hunter.MakeShot())
         {
             Debug.Log("Make Shot");
-            //vectorEnd = (vectorEnd - vectorStart).normalized * _game.Hunter.ShotDistance;
+            var direction = (vectorEnd - vectorStart).normalized;
+            vectorEnd = vectorStart + direction * _game.Hunter.ShotDistance;
             DrawShotLine(vectorStart, vectorEnd);
         }
         _game.Hunter.MoveTo(h, v);
