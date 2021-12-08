@@ -36,8 +36,7 @@ namespace Hunter.Model.HunterGame
             List<Entity> entities = new();
             switch (animalType)
             {
-                case AnimalType.Rabbit//, AnimalType.Wolf
-                    :
+                case AnimalType.Rabbit:
                     entities = Entities[animalType];
                     break;
                 case AnimalType.Deer:
@@ -48,6 +47,9 @@ namespace Hunter.Model.HunterGame
                             entities.Add(anim);
                         }
                     }
+                    break;
+                case AnimalType.Wolf:
+                    entities = Entities[animalType];
                     break;
             }
             return entities;
