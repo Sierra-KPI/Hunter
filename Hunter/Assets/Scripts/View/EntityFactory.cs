@@ -8,15 +8,15 @@ public class EntityObject
     public GameObject Prefab;
     public int Number;
 
-    public EntityObject(AnimalType animal, GameObject prefab, int number)
+    public EntityObject(AnimalType animal, GameObject prefab)
     {
         AnimalType = animal;
         Prefab = prefab;
-        Number = number;
+        Number = EntityFactory.GetAnimalsNumber(animal);
     }
 }
 
-class EntityFactory : MonoBehaviour
+public class EntityFactory : MonoBehaviour
 {
     public static Dictionary<string, int> AnimalsNumber = new();
 
@@ -76,5 +76,24 @@ class EntityFactory : MonoBehaviour
     {
         entityObject.SetActive(false);
         EntityDictionary[animal].Enqueue(entityObject);
+    }
+
+    public static int GetAnimalsNumber(AnimalType animalType)
+    {
+        int number = 0;
+        switch (animalType)
+        {
+            case AnimalType.Rabbit:
+                number = AnimalsNumber["Rabbits"];
+                break;
+            case AnimalType.Deer:
+                number = AnimalsNumber["Deers"] * 10;
+                break;
+            /*case AnimalType.Wolf:
+                number = AnimalsNumber["Wolves"];
+                break;*/
+
+        }
+        return number;
     }
 }

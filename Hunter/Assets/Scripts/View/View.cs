@@ -1,122 +1,45 @@
-using System;
 using System.Collections.Generic;
 using Hunter.Model.Entities;
-using Hunter.Model.HunterGame;
 using UnityEngine;
 
 public class View : MonoBehaviour
 {
-    private Controller _controller;
-    private HunterGame _game;
     private readonly Dictionary<Entity, GameObject> _entities = new();
-    private EntityFactory _entityFactory;
+    private EntityFactory _entityFactory = new();
 
-    [Header("Game Settings")]
-
-    [Header("Rabbits")]
-    private int _rabbitsNumber;
-    [SerializeField]
-    private GameObject _rabbitsPrefab;
-    [SerializeField]
-    [TextArea]
-    private string _rabbitsParentName;
-
-    [Header("Deers")]
-    private int _deersNumber;
-    [SerializeField]
-    private GameObject _deersPrefab;
-    [SerializeField]
-    [TextArea]
-    private string _deersParentName;
-
-    [Header("Wolves")]
-    private int _wolvesNumber;
-
-    [Header("Hunter")]
-    [SerializeField]
-    private GameObject _hunterPrefab;
-
-    private void Awake()
+    public void CreateHunter(HunterPlayer hunter, GameObject hunterPrefab)
     {
-        _entityFactory = new EntityFactory();
+        GameObject obj = Instantiate(hunterPrefab);
+        _entities.Add(hunter, obj);
     }
 
-    private void Start()
-    {
-        _rabbitsNumber = EntityFactory.AnimalsNumber["Rabbits"];
-        _deersNumber = EntityFactory.AnimalsNumber["Deers"];
-        _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
-
-        _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
-        _controller = new Controller();
-
-
-        CreateHunter();
-        CreateEntityObjects();
-        CreateEntities();
-    }
-
-    private void CreateHunter()
-    {
-        GameObject obj = Instantiate(_hunterPrefab);
-        _entities.Add(_game.Hunter, obj);
-    }
-
-    private void CreateEntityObjects()
+    public void CreateEntityObjects(GameObject _rabbitsPrefab, GameObject _deersPrefab)
     {
         var _rabbitObject = new EntityObject(
             AnimalType.Rabbit,
-            _rabbitsPrefab,
-            _rabbitsNumber
+            _rabbitsPrefab
         );
         _entityFactory.AddEntityObject(_rabbitObject);
 
         var _deerObject = new EntityObject(
             AnimalType.Deer,
-            _deersPrefab,
-            _deersNumber * 10
+            _deersPrefab
         );
         _entityFactory.AddEntityObject(_deerObject);
 
         _entityFactory.CreateEntityObjects();
     }
 
-    private void CreateEntities()
+    public void CreateEntities(AnimalType animalType, List<Entity> Entities)
     {
-        foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+        foreach (Animal anim in Entities)
         {
-            List<Entity> animals = _game.GetAnimals(animalType);
-            foreach (Animal anim in animals)
-            {
-                GameObject entityObject = _entityFactory.GetEntity(animalType, anim);
-
-                _entities.Add(anim, entityObject);
-            }
+            GameObject entityObject = _entityFactory.GetEntity(animalType, anim);
+            _entities.Add(anim, entityObject);
         }
     }
 
-    private void Update()
-    {
-        _game.Update();
-
-        //_controller.ReadMoves();
-
-        (float h, float v) = _controller.HunterControler();
-        Vector3 vectorEnd = _controller.MousePosition();
-        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
-        if (vectorEnd != Vector3.zero && _game.Hunter.MakeShot())
-        {
-            Debug.Log("Make Shot");
-            var direction = (vectorEnd - vectorStart).normalized;
-            vectorEnd = vectorStart + direction * _game.Hunter.ShotDistance;
-            DrawShotLine(vectorStart, vectorEnd);
-        }
-        _game.Hunter.MoveTo(h, v);
-
-        ChangeGameObjectsPositions();
-    }
-
-    private void ChangeGameObjectsPositions()
+    public void ChangeGameObjectsPositions()
     {
         foreach (KeyValuePair<Entity, GameObject> keyValue in _entities)
         {
@@ -128,7 +51,7 @@ public class View : MonoBehaviour
         }
     }
 
-    private void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.5f)
+    public void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.5f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;
