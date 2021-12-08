@@ -26,7 +26,7 @@ public class Controller : MonoBehaviour
     private void Start()
     {
         int _rabbitsNumber = EntityFactory.GetAnimalsNumber(AnimalType.Rabbit);
-        int _deersNumber = EntityFactory.GetAnimalsNumber(AnimalType.Deer);
+        int _deersNumber = EntityFactory.GetAnimalsNumber(AnimalType.Deer) / 10;
         //int _wolvesNumber = EntityFactory.GetAnimalsNumber(AnimalType.Wolf);
 
         _game = new(_rabbitsNumber, _deersNumber, 0);
