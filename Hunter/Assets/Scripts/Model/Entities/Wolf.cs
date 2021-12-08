@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using Hunter.Model.Behaviours;
+using System.Timers;
 
 namespace Hunter.Model.Entities
 {
@@ -8,13 +10,19 @@ namespace Hunter.Model.Entities
     public class Wolf : Animal
     {
         public float RunSpeed { get; set; }
+        public Timer Hunger;
+
+        Hunger = new System.Timers.Timer();
+        Hunger.Interval = 5000;
+        Hunger.AutoReset = false;
+        Hunger.Enabled = true;
+        Hunger.Elapsed = Wolf.Die();
 
         public Wolf() : base()
         {
             MaxSpeed = 1.5f * 0.001f;
-            BodyRadius = ;
-            BodySeekRadius;
-            PreySeekRadius = ;
+            BodyRadius = 0.5f;
+            BodySeekRadius = 5;
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;
