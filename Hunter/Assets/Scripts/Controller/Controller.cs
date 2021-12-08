@@ -25,11 +25,11 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        int _rabbitsNumber = EntityFactory.AnimalsNumber["Rabbits"];
-        int _deersNumber = EntityFactory.AnimalsNumber["Deers"];
-        int _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
+        int _rabbitsNumber = EntityFactory.GetAnimalsNumber(AnimalType.Rabbit);
+        int _deersNumber = EntityFactory.GetAnimalsNumber(AnimalType.Deer);
+        //int _wolvesNumber = EntityFactory.GetAnimalsNumber(AnimalType.Wolf);
 
-        _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
+        _game = new(_rabbitsNumber, _deersNumber, 0);
         _view = gameObject.AddComponent<View>();
         
         _view.CreateHunter(_game.Hunter, _hunterPrefab);
