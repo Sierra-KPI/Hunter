@@ -6,21 +6,23 @@ using System.Timers;
 
 namespace Hunter.Model.Entities
 {
-
     public class Wolf : Animal
     {
         public float RunSpeed { get; set; }
-        public Timer Hunger;
 
-        Hunger = new System.Timers.Timer();
-        Hunger.Interval = 5000;
-        Hunger.AutoReset = false;
-        Hunger.Enabled = true;
-        Hunger.Elapsed = Wolf.Die();
+        //public static void lifeSpan()
+        //{
+        //    Wolf wolf = new Wolf();
+        //    Timer Hunger = new System.Timers.Timer();
+        //    Hunger.Interval = 5000;
+        //    Hunger.AutoReset = false;
+        //    Hunger.Enabled = true;
+        //    //Hunger.Elapsed += wolf.Die();
+        //}
 
         public Wolf() : base()
         {
-            MaxSpeed = 1.5f * 0.001f;
+            MaxSpeed = 1f * 0.001f;
             BodyRadius = 0.5f;
             BodySeekRadius = 5;
             WanderCircleDistance = 10;
@@ -55,3 +57,4 @@ namespace Hunter.Model.Entities
         }
     }
 }
+

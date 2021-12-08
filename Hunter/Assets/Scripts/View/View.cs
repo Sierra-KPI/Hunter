@@ -88,7 +88,7 @@ public class View : MonoBehaviour
             _wolvesPrefab,
             _wolvesNumber
         );
-        _entityFactory.AddEntityObject(_deerObject);
+        _entityFactory.AddEntityObject(_wolfObject);
 
         _entityFactory.CreateEntityObjects();
     }

@@ -1,23 +1,18 @@
 using System;
-using UnityEngine;
+using System.Numerics;
 using Hunter.Model.Entities;
 
 namespace Hunter.Model.Behaviours
 {
-    public class PursueBehaviour : DesiredVelocityGiver
-    {
-        private Transform prey;
-        private float arriveRadius = 5;
+    //public static class PursueBehaviour
+    //{
+    //    private wolf = new Entity;
+    //    private float arriveRadius = 5;
+    //    public void Seek(Vector2 target)
+    //    {
+    //        Vector2 desired_velocity = normalize(position - target) * max_speed;
+    //        Vector2 steering = desired_velocity - velocity;
+    //    }
 
-        public override Vector2 GetDesiredVelocity()
-        {
-            var distance = (prey.position - transform.position);
-            float n = 1;
-            if(distance.magnitude < arriveRadius)
-            {
-                n = distance.magnitude / arriveRadius;
-            }
-            return distance.normalized * n;
-        }
-    }
+    //}
 }
