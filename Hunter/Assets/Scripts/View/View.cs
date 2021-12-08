@@ -6,28 +6,21 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
-    private Controller _controller;
-    private HunterGame _game;
+
     private readonly Dictionary<Entity, GameObject> _entities = new();
-    private EntityFactory _entityFactory;
+    private EntityFactory _entityFactory = new();
 
     [Header("Game Settings")]
 
     [Header("Rabbits")]
-    private int _rabbitsNumber;
     [SerializeField]
     private GameObject _rabbitsPrefab;
-    [SerializeField]
-    [TextArea]
-    private string _rabbitsParentName;
+    private int _rabbitsNumber;
 
     [Header("Deers")]
-    private int _deersNumber;
     [SerializeField]
     private GameObject _deersPrefab;
-    [SerializeField]
-    [TextArea]
-    private string _deersParentName;
+    private int _deersNumber;
 
     [Header("Wolves")]
     private int _wolvesNumber;
@@ -36,30 +29,11 @@ public class View : MonoBehaviour
     [SerializeField]
     private GameObject _hunterPrefab;
 
-    private void Awake()
-    {
-        _entityFactory = new EntityFactory();
-    }
 
-    private void Start()
-    {
-        _rabbitsNumber = EntityFactory.AnimalsNumber["Rabbits"];
-        _deersNumber = EntityFactory.AnimalsNumber["Deers"];
-        _wolvesNumber = EntityFactory.AnimalsNumber["Wolves"];
-
-        _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
-        _controller = new Controller();
-
-
-        CreateHunter();
-        CreateEntityObjects();
-        CreateEntities();
-    }
-
-    private void CreateHunter()
+    public void CreateHunter(HunterPlayer hunter)
     {
         GameObject obj = Instantiate(_hunterPrefab);
-        _entities.Add(_game.Hunter, obj);
+        _entities.Add(hunter, obj);
     }
 
     private void CreateEntityObjects()
@@ -81,42 +55,22 @@ public class View : MonoBehaviour
         _entityFactory.CreateEntityObjects();
     }
 
-    private void CreateEntities()
+    public void CreateEntities(Dictionary<AnimalType, List<Entity>> Entities)
     {
-        foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+        CreateEntityObjects();
+        foreach (KeyValuePair<AnimalType, List<Entity>> value in Entities)
         {
-            List<Entity> animals = _game.GetAnimals(animalType);
+            List<Entity> animals = value.Value;
             foreach (Animal anim in animals)
             {
-                GameObject entityObject = _entityFactory.GetEntity(animalType, anim);
+                GameObject entityObject = _entityFactory.GetEntity(value.Key, anim);
 
                 _entities.Add(anim, entityObject);
             }
         }
     }
 
-    private void Update()
-    {
-        _game.Update();
-
-        //_controller.ReadMoves();
-
-        (float h, float v) = _controller.HunterControler();
-        Vector3 vectorEnd = _controller.MousePosition();
-        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
-        if (vectorEnd != Vector3.zero && _game.Hunter.MakeShot())
-        {
-            Debug.Log("Make Shot");
-            var direction = (vectorEnd - vectorStart).normalized;
-            vectorEnd = vectorStart + direction * _game.Hunter.ShotDistance;
-            DrawShotLine(vectorStart, vectorEnd);
-        }
-        _game.Hunter.MoveTo(h, v);
-
-        ChangeGameObjectsPositions();
-    }
-
-    private void ChangeGameObjectsPositions()
+    public void ChangeGameObjectsPositions()
     {
         foreach (KeyValuePair<Entity, GameObject> keyValue in _entities)
         {
@@ -128,7 +82,7 @@ public class View : MonoBehaviour
         }
     }
 
-    private void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.5f)
+    public void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.5f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;

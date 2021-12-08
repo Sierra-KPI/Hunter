@@ -16,7 +16,7 @@ public class EntityObject
     }
 }
 
-class EntityFactory : MonoBehaviour
+public class EntityFactory : MonoBehaviour
 {
     public static Dictionary<string, int> AnimalsNumber = new();
 
