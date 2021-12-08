@@ -10,10 +10,11 @@ namespace Hunter.Model.HunterGame
         public Dictionary<AnimalType, List<Entity>> Entities = new();
         public HunterPlayer Hunter;
 
-        public HunterGame(int rabbits, int deers, int wolfs)
+        public HunterGame(int rabbits, int deers, int wolves)
         {
             Entities.Add(AnimalType.Rabbit, Rabbit.CreateEntities(rabbits));
             Entities.Add(AnimalType.Deer, Herd.CreateEntities(deers));
+            Entities.Add(AnimalType.Wolf, Rabbit.CreateEntities(wolves));
 
             Hunter = new HunterPlayer();
         }

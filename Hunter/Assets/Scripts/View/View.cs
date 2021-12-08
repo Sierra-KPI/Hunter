@@ -31,6 +31,11 @@ public class View : MonoBehaviour
 
     [Header("Wolves")]
     private int _wolvesNumber;
+    [SerializeField]
+    private GameObject _wolvesPrefab;
+    [SerializeField]
+    [TextArea]
+    private string _wolvesParentName;
 
     [Header("Hunter")]
     [SerializeField]
@@ -75,6 +80,13 @@ public class View : MonoBehaviour
             AnimalType.Deer,
             _deersPrefab,
             _deersNumber * 10
+        );
+        _entityFactory.AddEntityObject(_deerObject);
+
+        var _wolfObject = new EntityObject(
+            AnimalType.Wolf,
+            _wolvesPrefab,
+            _wolvesNumber
         );
         _entityFactory.AddEntityObject(_deerObject);
 
