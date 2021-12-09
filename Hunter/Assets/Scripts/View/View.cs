@@ -39,6 +39,12 @@ public class View : MonoBehaviour
         }
     }
 
+    public void DestroyEntity(Animal animal)
+    {
+        var obj = _entities.GetValueOrDefault(animal);
+        _entityFactory.ReturnEntity(obj, animal.AnimalType);
+    }
+
     public void ChangeGameObjectsPositions()
     {
         foreach (KeyValuePair<Entity, GameObject> keyValue in _entities)
@@ -51,7 +57,7 @@ public class View : MonoBehaviour
         }
     }
 
-    public void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.5f)
+    public void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.3f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;

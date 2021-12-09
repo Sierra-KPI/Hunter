@@ -57,7 +57,6 @@ public class Controller : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        //Debug.Log(h + " " + v);
         _game.Hunter.MoveTo(h, v);
     }
 
@@ -67,16 +66,17 @@ public class Controller : MonoBehaviour
         {
             Vector3 screenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
             Vector3 vectorEnd = Camera.main.ScreenToWorldPoint(screenPosition);
-            //Debug.Log(worldPosition.x + " " + worldPosition.y + " " + worldPosition.z);
             vectorEnd.z = 0;
             Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
             if (_game.Hunter.MakeShot())
             {
                 Debug.Log("Make Shot");
-                _game.TryToKillAnimalByShot(vectorEnd.x, vectorEnd.y);
                 var direction = (vectorEnd - vectorStart).normalized;
                 vectorEnd = vectorStart + direction * _game.Hunter.ShotDistance;
                 _view.DrawShotLine(vectorStart, vectorEnd);
+
+                var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x, vectorEnd.y);
+                if (deadAnimal != null) _view.DestroyEntity(deadAnimal);
             }
         }
     }

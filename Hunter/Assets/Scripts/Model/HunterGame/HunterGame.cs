@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Hunter.Model.Entities;
-using UnityEngine;
 
 namespace Hunter.Model.HunterGame
 {
@@ -53,9 +52,9 @@ namespace Hunter.Model.HunterGame
             return entities;
         }
 
-        public void TryToKillAnimalByShot(float shotX, float shotY)
+        public Animal TryToKillAnimalByShot(float shotX, float shotY)
         {
-            var shot = new System.Numerics.Vector2(shotX, shotY);
+            var shot = new Vector2(shotX, shotY);
             var shotVector = shot - Hunter.Position;
 
             foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
@@ -65,7 +64,6 @@ namespace Hunter.Model.HunterGame
                 {
                     var animalVector = (animalEntity.Position - Hunter.Position);
                     if (animalVector.Length() > Hunter.ShotDistance) continue;
-                    Debug.Log("KillAnimalByShot");
 
                     double maxAngle = Math.Asin(animalEntity.BodyRadius / animalVector.Length());
 
@@ -77,14 +75,41 @@ namespace Hunter.Model.HunterGame
 
                     if (Math.Abs(maxAngle) >= Math.Abs(shotAngle))
                     {
-                        Debug.Log(animalType + "Kill");
+                        if (KillAnimal(animalType, animalEntity))
+                        {
+                            return animalEntity;
+                        }
                     }
-
-                    
                 }
             }
 
+            return null;
+
         }
+
+        public bool KillAnimal(AnimalType animalType, Animal animal)
+        {
+            switch (animalType)
+            {
+                case AnimalType.Rabbit:
+                    return Entities[animalType].Remove(animal);
+                case AnimalType.Deer:
+                    foreach (Herd herd in Entities[animalType])
+                    {
+                        if (herd.RemoveAnimal((HerdAnimal)animal))
+                        {
+                            if (herd.GetAnimals().GetLength(0) == 1)
+                            {
+                                Entities[animalType].Remove(herd);
+                            }
+                            return true;
+                        }
+                    }
+                    break;
+            }
+            return false;
+        }
+
 
         private double TransformAngle(double angle)
         {

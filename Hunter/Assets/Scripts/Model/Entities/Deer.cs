@@ -14,6 +14,8 @@ namespace Hunter.Model.Entities
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;
+
+            AnimalType = AnimalType.Deer;
         }
 
         public override void MoveInHerd(HerdAnimal[] Deers)
