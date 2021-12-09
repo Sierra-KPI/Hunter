@@ -144,6 +144,18 @@ namespace Hunter.Model.HunterGame
             return false;
         }
 
+        public bool TryToKillHunter()
+        {
+            foreach (Animal wolf in Entities[AnimalType.Wolf])
+            {
+                if (CollisionDetection.AreColliding(wolf, Hunter, wolf.BodyRadius, Hunter.BodyRadius))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         private double TransformAngle(double angle)
         {

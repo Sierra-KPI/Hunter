@@ -43,7 +43,7 @@ public class Controller : MonoBehaviour
     private void Update()
     {
         ReadMoves();
-        TryToKillByWolf();
+        //TryToKillByWolf();
         _game.Update();
         _view.ChangeGameObjectsPositions();
     }
@@ -98,6 +98,12 @@ public class Controller : MonoBehaviour
         {
             Debug.Log("Kill By Wolf");
             _view.DestroyEntity(deadAnimal);
+        }
+        var isHunterDead = _game.TryToKillHunter();
+        if (isHunterDead)
+        {
+            enabled = false;
+            Debug.Log("Game Over");
         }
     }
 
