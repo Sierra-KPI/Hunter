@@ -14,7 +14,7 @@ namespace Hunter.Model.HunterGame
         {
             Entities.Add(AnimalType.Rabbit, Rabbit.CreateEntities(rabbits));
             Entities.Add(AnimalType.Deer, Herd.CreateEntities(deers));
-            Entities.Add(AnimalType.Wolf, Rabbit.CreateEntities(wolves));
+            Entities.Add(AnimalType.Wolf, Wolf.CreateEntities(wolves));
 
             Hunter = new HunterPlayer();
         }

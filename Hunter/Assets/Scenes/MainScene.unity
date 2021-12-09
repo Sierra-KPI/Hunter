@@ -233,13 +233,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 832201666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8053659c0cb48834ca54028c90c12b90, type: 3}
+  m_Script: {fileID: 11500000, guid: 2721c3cfc130c174e8fa60aa30e33eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rabbitsPrefab: {fileID: 2939507886603013002, guid: d3ad172ed70f4384cba812e4946941c1, type: 3}
-  _deersPrefab: {fileID: 2939507886603013002, guid: 0f79601e1ddf3f74fb35a9cead0caf70, type: 3}
-  _wolvesPrefab: {fileID: 4390269656966409110, guid: 1c8ee9f8e76227244830f8fd29f2ac5b, type: 3}
-  _hunterPrefab: {fileID: 2939507886603013002, guid: 21c5608bc611085419979cf9d6b9e243, type: 3}
+  _rabbitsPrefab: {fileID: 2939507886603013002, guid: 95d8a0e8d2b6a3942a67a844041cb98f, type: 3}
+  _deersPrefab: {fileID: 2939507886603013002, guid: 3042d81e715ff024ab8ee0a7e8c5d7b1, type: 3}
+  _wolvesPrefab: {fileID: 4390269656966409110, guid: fcc458531850a564eb631bb123dae25c, type: 3}
+  _hunterPrefab: {fileID: 2939507886603013002, guid: 28559220176e4b84ca0b434ab95c10db, type: 3}
 --- !u!4 &832201668
 Transform:
   m_ObjectHideFlags: 0
