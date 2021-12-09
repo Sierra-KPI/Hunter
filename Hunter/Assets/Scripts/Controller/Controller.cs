@@ -43,6 +43,7 @@ public class Controller : MonoBehaviour
     private void Update()
     {
         ReadMoves();
+        TryToKillByWolf();
         _game.Update();
         _view.ChangeGameObjectsPositions();
     }
@@ -87,6 +88,16 @@ public class Controller : MonoBehaviour
                 vectorEnd = vectorStart + direction * shotLength;
                 _view.DrawShotLine(vectorStart, vectorEnd);
             }
+        }
+    }
+
+    private void TryToKillByWolf()
+    {
+        var deadAnimal = _game.TryToKillAnimalByWolf();
+        if (deadAnimal != null)
+        {
+            Debug.Log("Kill By Wolf");
+            _view.DestroyEntity(deadAnimal);
         }
     }
 
