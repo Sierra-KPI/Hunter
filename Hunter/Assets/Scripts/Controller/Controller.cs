@@ -49,7 +49,7 @@ public class Controller : MonoBehaviour
         foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
             List<Entity> animals = _game.GetAnimals(animalType);
-            _view.CreateEntities(animalType, animals);
+            _view.CreateEntities(animals);
         }
     }
 
@@ -57,7 +57,6 @@ public class Controller : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        //Debug.Log(h + " " + v);
         _game.Hunter.MoveTo(h, v);
     }
 
@@ -67,14 +66,21 @@ public class Controller : MonoBehaviour
         {
             Vector3 screenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
             Vector3 vectorEnd = Camera.main.ScreenToWorldPoint(screenPosition);
-            //Debug.Log(worldPosition.x + " " + worldPosition.y + " " + worldPosition.z);
             vectorEnd.z = 0;
             Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
             if (_game.Hunter.MakeShot())
             {
                 Debug.Log("Make Shot");
+                var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x, vectorEnd.y);
+                var shotLength = _game.Hunter.ShotDistance;
+                if (deadAnimal != null)
+                {
+                    _view.DestroyEntity(deadAnimal);
+                    shotLength = (_game.Hunter.Position - deadAnimal.Position).Length();
+                }
+
                 var direction = (vectorEnd - vectorStart).normalized;
-                vectorEnd = vectorStart + direction * _game.Hunter.ShotDistance;
+                vectorEnd = vectorStart + direction * shotLength;
                 _view.DrawShotLine(vectorStart, vectorEnd);
             }
         }

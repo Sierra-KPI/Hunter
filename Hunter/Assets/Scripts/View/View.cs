@@ -30,13 +30,19 @@ public class View : MonoBehaviour
         _entityFactory.CreateEntityObjects();
     }
 
-    public void CreateEntities(AnimalType animalType, List<Entity> Entities)
+    public void CreateEntities(List<Entity> Entities)
     {
-        foreach (Animal anim in Entities)
+        foreach (Animal animal in Entities)
         {
-            GameObject entityObject = _entityFactory.GetEntity(animalType, anim);
-            _entities.Add(anim, entityObject);
+            GameObject entityObject = _entityFactory.GetEntity(animal);
+            _entities.Add(animal, entityObject);
         }
+    }
+
+    public void DestroyEntity(Animal animal)
+    {
+        var obj = _entities.GetValueOrDefault(animal);
+        _entityFactory.ReturnEntity(obj, animal.AnimalType);
     }
 
     public void ChangeGameObjectsPositions()
@@ -51,7 +57,7 @@ public class View : MonoBehaviour
         }
     }
 
-    public void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.5f)
+    public void DrawShotLine(Vector3 start, Vector3 end, float duration = 0.3f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;

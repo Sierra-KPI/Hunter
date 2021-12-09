@@ -53,19 +53,19 @@ public class EntityFactory : MonoBehaviour
         }
     }
 
-    public GameObject GetEntity(AnimalType animal, Entity entity)
+    public GameObject GetEntity(Animal animal)
     {
-        if (!EntityDictionary.ContainsKey(animal))
+        if (!EntityDictionary.ContainsKey(animal.AnimalType))
         {
-            Debug.LogWarning("No such animal: " + animal);
+            Debug.LogWarning("No such animal: " + animal.AnimalType);
             return null;
         }
 
-        GameObject entityObject = EntityDictionary[animal].Dequeue();
+        GameObject entityObject = EntityDictionary[animal.AnimalType].Dequeue();
         entityObject.SetActive(true);
 
-        float xPosition = entity.Position.X;
-        float yPosition = entity.Position.Y;
+        float xPosition = animal.Position.X;
+        float yPosition = animal.Position.Y;
         entityObject.transform.localPosition =
             new Vector3(xPosition, yPosition);
 
