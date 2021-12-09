@@ -27,7 +27,6 @@ namespace Hunter.Model.HunterGame
                 foreach (Animal animal in Entities[animalType])
                 {
                     animal.Move();
-                    //animal.GetEntititesInArea(Entities.SelectMany(d => d.Value).ToList());
                     animal.GetEntititesInArea(GetAllEntities());
                 }
             }
@@ -64,11 +63,10 @@ namespace Hunter.Model.HunterGame
             {
                 entities.AddRange(GetAnimals(animalType));
             }
-            //entities.Add(Hunter);
             return entities;
         }
 
-        public Animal TryToKillAnimalByShot(float shotX, float shotY)
+        public Animal TryToKillAnimalByHunter(float shotX, float shotY)
         {
             var shot = new Vector2(shotX, shotY);
             var shotVector = shot - Hunter.Position;
