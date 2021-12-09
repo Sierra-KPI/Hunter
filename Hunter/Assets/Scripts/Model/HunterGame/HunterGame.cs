@@ -82,9 +82,7 @@ namespace Hunter.Model.HunterGame
                     }
                 }
             }
-
             return null;
-
         }
 
         public bool KillAnimal(AnimalType animalType, Animal animal)

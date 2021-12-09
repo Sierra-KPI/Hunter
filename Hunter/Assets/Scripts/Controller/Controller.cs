@@ -71,12 +71,17 @@ public class Controller : MonoBehaviour
             if (_game.Hunter.MakeShot())
             {
                 Debug.Log("Make Shot");
-                var direction = (vectorEnd - vectorStart).normalized;
-                vectorEnd = vectorStart + direction * _game.Hunter.ShotDistance;
-                _view.DrawShotLine(vectorStart, vectorEnd);
-
                 var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x, vectorEnd.y);
-                if (deadAnimal != null) _view.DestroyEntity(deadAnimal);
+                var shotLength = _game.Hunter.ShotDistance;
+                if (deadAnimal != null)
+                {
+                    _view.DestroyEntity(deadAnimal);
+                    shotLength = (_game.Hunter.Position - deadAnimal.Position).Length();
+                }
+
+                var direction = (vectorEnd - vectorStart).normalized;
+                vectorEnd = vectorStart + direction * shotLength;
+                _view.DrawShotLine(vectorStart, vectorEnd);
             }
         }
     }
