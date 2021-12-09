@@ -19,6 +19,10 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private GameObject _deersPrefab;
 
+    [Header("Wolves")]
+    [SerializeField]
+    private GameObject _wolvesPrefab;
+
     [Header("Hunter")]
     [SerializeField]
     private GameObject _hunterPrefab;
@@ -27,9 +31,9 @@ public class Controller : MonoBehaviour
     {
         int _rabbitsNumber = EntityFactory.GetAnimalsNumber(AnimalType.Rabbit);
         int _deersNumber = EntityFactory.GetAnimalsNumber(AnimalType.Deer) / 10;
-        //int _wolvesNumber = EntityFactory.GetAnimalsNumber(AnimalType.Wolf);
+        int _wolvesNumber = EntityFactory.GetAnimalsNumber(AnimalType.Wolf);
 
-        _game = new(_rabbitsNumber, _deersNumber, 0);
+        _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
         _view = gameObject.AddComponent<View>();
         
         _view.CreateHunter(_game.Hunter, _hunterPrefab);
@@ -45,7 +49,7 @@ public class Controller : MonoBehaviour
 
     private void CreateAnimals()
     {
-        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab);
+        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab);
         foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
             List<Entity> animals = _game.GetAnimals(animalType);
