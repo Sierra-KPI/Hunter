@@ -30,12 +30,12 @@ public class View : MonoBehaviour
         _entityFactory.CreateEntityObjects();
     }
 
-    public void CreateEntities(AnimalType animalType, List<Entity> Entities)
+    public void CreateEntities(List<Entity> Entities)
     {
-        foreach (Animal anim in Entities)
+        foreach (Animal animal in Entities)
         {
-            GameObject entityObject = _entityFactory.GetEntity(animalType, anim);
-            _entities.Add(anim, entityObject);
+            GameObject entityObject = _entityFactory.GetEntity(animal);
+            _entities.Add(animal, entityObject);
         }
     }
 

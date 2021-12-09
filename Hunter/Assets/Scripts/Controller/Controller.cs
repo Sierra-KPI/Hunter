@@ -49,7 +49,7 @@ public class Controller : MonoBehaviour
         foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
             List<Entity> animals = _game.GetAnimals(animalType);
-            _view.CreateEntities(animalType, animals);
+            _view.CreateEntities(animals);
         }
     }
 

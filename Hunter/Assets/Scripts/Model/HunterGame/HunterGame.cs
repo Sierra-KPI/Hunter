@@ -75,7 +75,7 @@ namespace Hunter.Model.HunterGame
 
                     if (Math.Abs(maxAngle) >= Math.Abs(shotAngle))
                     {
-                        if (KillAnimal(animalType, animalEntity))
+                        if (KillAnimal(animalEntity))
                         {
                             return animalEntity;
                         }
@@ -85,20 +85,20 @@ namespace Hunter.Model.HunterGame
             return null;
         }
 
-        public bool KillAnimal(AnimalType animalType, Animal animal)
+        public bool KillAnimal(Animal animal)
         {
-            switch (animalType)
+            switch (animal.AnimalType)
             {
                 case AnimalType.Rabbit:
-                    return Entities[animalType].Remove(animal);
+                    return Entities[animal.AnimalType].Remove(animal);
                 case AnimalType.Deer:
-                    foreach (Herd herd in Entities[animalType])
+                    foreach (Herd herd in Entities[animal.AnimalType])
                     {
                         if (herd.RemoveAnimal((HerdAnimal)animal))
                         {
                             if (herd.GetAnimals().GetLength(0) == 1)
                             {
-                                Entities[animalType].Remove(herd);
+                                Entities[animal.AnimalType].Remove(herd);
                             }
                             return true;
                         }
