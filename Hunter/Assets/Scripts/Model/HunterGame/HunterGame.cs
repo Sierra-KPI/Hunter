@@ -96,7 +96,7 @@ namespace Hunter.Model.HunterGame
                     {
                         if (herd.RemoveAnimal((HerdAnimal)animal))
                         {
-                            if (herd.GetAnimals().GetLength(0) == 1)
+                            if (herd.GetAnimals().GetLength(0) == 0)
                             {
                                 Entities[animal.AnimalType].Remove(herd);
                             }

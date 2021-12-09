@@ -22,7 +22,8 @@ namespace Hunter.Model.Entities
         {
             Vector2 wander = WanderBehaviour.Wander(this);
             Vector2 steering = HerdBehaviour.GetHerdVelocity(Deers, this);
-            Velocity = Vector2.Multiply(Velocity + steering + wander, MaxSpeed);
+            if (Deers.GetLength(0) == 1) Velocity = Vector2.Multiply(Velocity + wander, MaxSpeed);
+            else Velocity = Vector2.Multiply(Velocity + steering + wander, MaxSpeed);
             Position += Velocity;
         }
 
