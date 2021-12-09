@@ -10,6 +10,7 @@ namespace Hunter.Model.Entities
         public Deer() : base()
         {
             MaxSpeed = 1f * 0.001f;
+            BodyRadius = 0.34f;
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;

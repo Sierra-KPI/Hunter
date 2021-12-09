@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Hunter.Model.Entities;
+using UnityEngine;
 
 namespace Hunter.Model.HunterGame
 {
@@ -50,5 +52,51 @@ namespace Hunter.Model.HunterGame
             }
             return entities;
         }
+
+        public void TryToKillAnimalByShot(float shotX, float shotY)
+        {
+            var shot = new System.Numerics.Vector2(shotX, shotY);
+            var shotVector = shot - Hunter.Position;
+
+            foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+            {
+                var list = GetAnimals(animalType);
+                foreach (Animal animalEntity in list)
+                {
+                    var animalVector = (animalEntity.Position - Hunter.Position);
+                    if (animalVector.Length() > Hunter.ShotDistance) continue;
+                    Debug.Log("KillAnimalByShot");
+
+                    double maxAngle = Math.Asin(animalEntity.BodyRadius / animalVector.Length());
+
+                    double shotAngle = Math.Acos((shotVector.X * animalVector.X + shotVector.Y * animalVector.Y) / (
+                        shotVector.Length() * animalVector.Length()));
+
+                    maxAngle = TransformAngle(maxAngle);
+                    shotAngle = TransformAngle(shotAngle);
+
+                    if (Math.Abs(maxAngle) >= Math.Abs(shotAngle))
+                    {
+                        Debug.Log(animalType + "Kill");
+                    }
+
+                    
+                }
+            }
+
+        }
+
+        private double TransformAngle(double angle)
+        {
+            if (angle > Math.PI)
+            {
+                return -(2 * Math.PI - angle);
+            }
+            else
+            {
+                return angle;
+            }
+        }
+
     }
 }

@@ -73,6 +73,7 @@ public class Controller : MonoBehaviour
             if (_game.Hunter.MakeShot())
             {
                 Debug.Log("Make Shot");
+                _game.TryToKillAnimalByShot(vectorEnd.x, vectorEnd.y);
                 var direction = (vectorEnd - vectorStart).normalized;
                 vectorEnd = vectorStart + direction * _game.Hunter.ShotDistance;
                 _view.DrawShotLine(vectorStart, vectorEnd);
