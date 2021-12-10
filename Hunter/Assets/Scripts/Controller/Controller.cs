@@ -46,6 +46,7 @@ public class Controller : MonoBehaviour
         ReadMoves();
         _game.Update();
         _view.ChangeGameObjectsPositions();
+        //CheckGameEnd();
     }
 
     private void CreateAnimals()
@@ -102,6 +103,14 @@ public class Controller : MonoBehaviour
         {
             _sceneLoader.LoadPauseMenu();
             
+        }
+    }
+
+    private void CheckGameEnd()
+    {
+        if (_game.GetAllEntities().Count == 0)
+        {
+            _sceneLoader.LoadWinningGameEnd();
         }
     }
 
