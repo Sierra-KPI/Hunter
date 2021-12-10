@@ -28,7 +28,8 @@ namespace Hunter.Model.Behaviours
                         float targetDistance = Vector2.Distance(animal.Position,
                             target[0].Position);
 
-                        if (targetDistance < minDistance && (entity as Animal).GetType() != animal.GetType())
+                        if (targetDistance < minDistance &&
+                            (entity as Animal).GetType() != animal.GetType())
                         {
                             minDistance = targetDistance;
                             _targetPosition = entity.Position;
