@@ -21,6 +21,8 @@ namespace Hunter.Model.Entities
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;
+
+            AnimalType = AnimalType.Rabbit;
         }
 
         public static List<Entity> CreateEntities(int numberOfRabbits)
