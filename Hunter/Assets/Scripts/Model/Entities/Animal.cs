@@ -39,7 +39,7 @@ namespace Hunter.Model.Entities
             Velocity = new Vector2(xPos, yPos);
         }
 
-        public void GetEntititesInArea(List<Entity> allEntities)
+        public void GetEntitiesInArea(List<Entity> allEntities)
         {
             List<Entity> areaEntities = new List<Entity>();
 
@@ -53,6 +53,19 @@ namespace Hunter.Model.Entities
             }
 
             Entities = areaEntities;
+        }
+
+        public bool IsBehindBoard(float board)
+        {
+            if (Position.X + BodyRadius > board ||
+                Position.X + BodyRadius < -board ||
+                Position.Y + BodyRadius > board ||
+                Position.Y + BodyRadius < -board)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
