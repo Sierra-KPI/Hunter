@@ -23,6 +23,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private GameObject _hunterPrefab;
 
+    [SerializeField]
+    private Material _lineMaterial;
+
     private void Start()
     {
         int _rabbitsNumber = EntityFactory.GetAnimalsNumber(AnimalType.Rabbit);
@@ -31,7 +34,8 @@ public class Controller : MonoBehaviour
 
         _game = new(_rabbitsNumber, _deersNumber, 0);
         _view = gameObject.AddComponent<View>();
-        
+        _view.LineMaterial = _lineMaterial;
+
         _view.CreateHunter(_game.Hunter, _hunterPrefab);
         CreateAnimals();
     }
@@ -46,7 +50,8 @@ public class Controller : MonoBehaviour
     private void CreateAnimals()
     {
         _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab);
-        foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+        foreach (AnimalType animalType in
+            (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
             List<Entity> animals = _game.GetAnimals(animalType);
             _view.CreateEntities(animals);
@@ -64,19 +69,25 @@ public class Controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Vector3 screenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
+            Vector3 screenPosition = new Vector3(Input.mousePosition.x,
+                Input.mousePosition.y);
             Vector3 vectorEnd = Camera.main.ScreenToWorldPoint(screenPosition);
             vectorEnd.z = 0;
-            Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
+            Vector3 vectorStart = new Vector3(_game.Hunter.Position.X,
+                _game.Hunter.Position.Y);
+
             if (_game.Hunter.MakeShot())
             {
                 Debug.Log("Make Shot");
-                var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x, vectorEnd.y);
+                var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x,
+                    vectorEnd.y);
                 var shotLength = _game.Hunter.ShotDistance;
+
                 if (deadAnimal != null)
                 {
                     _view.DestroyEntity(deadAnimal);
-                    shotLength = (_game.Hunter.Position - deadAnimal.Position).Length();
+                    shotLength = (_game.Hunter.Position -
+                        deadAnimal.Position).Length();
                 }
 
                 var direction = (vectorEnd - vectorStart).normalized;
@@ -91,5 +102,4 @@ public class Controller : MonoBehaviour
         HunterControler();
         MousePosition();
     }
-
 }

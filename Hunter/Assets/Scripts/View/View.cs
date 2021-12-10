@@ -7,6 +7,8 @@ public class View : MonoBehaviour
     private readonly Dictionary<Entity, GameObject> _entities = new();
     private EntityFactory _entityFactory = new();
 
+    public Material LineMaterial;
+
     public void CreateHunter(HunterPlayer hunter, GameObject hunterPrefab)
     {
         GameObject obj = Instantiate(hunterPrefab);
@@ -65,10 +67,10 @@ public class View : MonoBehaviour
         LineRenderer line = myLine.GetComponent<LineRenderer>();
         line.startColor = Color.black;
         line.endColor = Color.black;
+        line.material = LineMaterial;
         line.startWidth = 0.05f;
         line.endWidth = 0.05f;
         line.SetPositions(new Vector3[] { start, end });
         Destroy(myLine, duration);
     }
-
 }
