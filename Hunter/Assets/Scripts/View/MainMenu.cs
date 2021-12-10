@@ -8,6 +8,8 @@ public class MainMenu : MonoBehaviour
     private Button _playButton;
     private Button _quitButton;
 
+    private string _mainSceneName = "MainScene";
+
     public void Start()
     {
         _sliders = FindObjectsOfType<Slider>();
@@ -34,10 +36,10 @@ public class MainMenu : MonoBehaviour
         foreach (var slider in _sliders)
         {
             string name = slider.name.Substring(0, slider.name.Length - 6);
-            EntityFactory.AnimalsNumber.Add(name, (int)slider.value);
+            EntityFactory.AnimalsNumber[name] = (int)slider.value;
         }
 
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene(_mainSceneName);
     }
 
 

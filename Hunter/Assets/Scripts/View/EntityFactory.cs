@@ -40,6 +40,11 @@ public class EntityFactory : MonoBehaviour
     {
         foreach (EntityObject entityObject in EntityObjects)
         {
+            if (EntityDictionary.ContainsKey(entityObject.AnimalType))
+            {
+                break;
+            }
+
             Queue<GameObject> objectQueue = new Queue<GameObject>();
 
             for (var i = 0; i < entityObject.Number; i++)
