@@ -45,6 +45,7 @@ public class Controller : MonoBehaviour
         ReadMoves();
         _game.Update();
         _view.ChangeGameObjectsPositions();
+        _view.DeleteDeadAnimals();
     }
 
     private void CreateAnimals()

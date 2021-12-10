@@ -73,4 +73,15 @@ public class View : MonoBehaviour
         line.SetPositions(new Vector3[] { start, end });
         Destroy(myLine, duration);
     }
+
+    public void DeleteDeadAnimals()
+    {
+        foreach (KeyValuePair<Entity, GameObject> keyValue in _entities)
+        {
+            if (keyValue.Key.IsDead)
+            {
+                DestroyEntity((Animal)keyValue.Key);
+            }
+        }
+    }
 }

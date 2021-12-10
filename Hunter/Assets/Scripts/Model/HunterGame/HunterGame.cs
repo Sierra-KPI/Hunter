@@ -10,7 +10,7 @@ namespace Hunter.Model.HunterGame
     {
         public Dictionary<AnimalType, List<Entity>> Entities = new();
         public HunterPlayer Hunter;
-        private readonly float _deadBorder = 10f; // CHANGE
+        private readonly float _deadBorder = 8f; // CHANGE
 
         public HunterGame(int rabbits, int deers, int wolfs)
         {
@@ -35,6 +35,7 @@ namespace Hunter.Model.HunterGame
                     if (animal.IsBehindBoard(_deadBorder))
                     {
                         animalsToBeKilled.Add(animal);
+                        animal.IsDead = true;
                     }
                 }
 
@@ -97,6 +98,7 @@ namespace Hunter.Model.HunterGame
                     {
                         if (KillAnimal(animalEntity))
                         {
+                            animalEntity.IsDead = true;
                             return animalEntity;
                         }
                     }
