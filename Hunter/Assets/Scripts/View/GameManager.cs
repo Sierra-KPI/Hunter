@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static string EndText = "GAME OVER!";
+    public static string MoreText = "";
     private string _winningMessage = "YOU WIN!";
     private string _loosingMessage = "YOU LOSE!";
 
@@ -17,12 +18,14 @@ public class GameManager : MonoBehaviour
     public void LoadWinningGameEnd()
     {
         EndText = _winningMessage;
+        MoreText = "but killing animals is bad";
         SceneManager.LoadScene(_endSceneName);
     }
 
     public void LoadLoosingGameEnd()
     {
         EndText = _loosingMessage;
+        MoreText = "";
         SceneManager.LoadScene(_endSceneName);
     }
 

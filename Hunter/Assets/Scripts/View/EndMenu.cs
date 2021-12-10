@@ -7,6 +7,7 @@ public class EndMenu : MonoBehaviour
     private Button _playButton;
     private Button _quitButton;
     private Text _text;
+    private Text _moreText;
 
     private string _startSceneName = "MainMenu";
 
@@ -14,6 +15,9 @@ public class EndMenu : MonoBehaviour
     {
         _text = GameObject.Find("GameText").GetComponent<Text>();
         _text.text = GameManager.EndText;
+
+        _moreText = GameObject.Find("MoreText").GetComponent<Text>();
+        _moreText.text = GameManager.MoreText;
 
         _playButton = GameObject.Find("PlayButton").GetComponent<Button>();
         _playButton.onClick.AddListener(delegate { OnPlayButtonClick(); });
@@ -25,7 +29,6 @@ public class EndMenu : MonoBehaviour
 
     public void OnPlayButtonClick()
     {
-
         SceneManager.LoadScene(_startSceneName);
     }
 

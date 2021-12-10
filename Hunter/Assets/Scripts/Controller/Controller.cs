@@ -75,7 +75,6 @@ public class Controller : MonoBehaviour
             Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
             if (_game.Hunter.MakeShot())
             {
-                Debug.Log("Make Shot");
                 var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x, vectorEnd.y);
                 var shotLength = _game.Hunter.ShotDistance;
                 if (deadAnimal != null)
