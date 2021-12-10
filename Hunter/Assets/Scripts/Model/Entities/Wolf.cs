@@ -24,7 +24,7 @@ namespace Hunter.Model.Entities
         {
             MaxSpeed = 1f * 0.001f;
             BodyRadius = 0.5f;
-            BodySeekRadius = 5;
+            BodySeekRadius = 30;
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;
