@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class SceneLoader : MonoBehaviour
 {
     public static string EndText = "GAME OVER!";
     public static string MoreText = "";

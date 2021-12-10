@@ -14,10 +14,10 @@ public class EndMenu : MonoBehaviour
     public void Start()
     {
         _text = GameObject.Find("GameText").GetComponent<Text>();
-        _text.text = GameManager.EndText;
+        _text.text = SceneLoader.EndText;
 
         _moreText = GameObject.Find("MoreText").GetComponent<Text>();
-        _moreText.text = GameManager.MoreText;
+        _moreText.text = SceneLoader.MoreText;
 
         _playButton = GameObject.Find("PlayButton").GetComponent<Button>();
         _playButton.onClick.AddListener(delegate { OnPlayButtonClick(); });

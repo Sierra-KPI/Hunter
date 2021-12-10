@@ -8,7 +8,7 @@ public class Controller : MonoBehaviour
 {
     private HunterGame _game;
     private View _view;
-    private GameManager _gameManager;
+    private SceneLoader _sceneLoader;
 
     [Header("Game Settings")]
 
@@ -32,8 +32,8 @@ public class Controller : MonoBehaviour
 
         _game = new(_rabbitsNumber, _deersNumber, 0);
         _view = gameObject.AddComponent<View>();
-        _gameManager = gameObject.AddComponent<GameManager>();
-        _gameManager.SetPauseMenu();
+        _sceneLoader = gameObject.AddComponent<SceneLoader>();
+        _sceneLoader.SetPauseMenu();
         
         _view.CreateHunter(_game.Hunter, _hunterPrefab);
         CreateAnimals();
@@ -42,7 +42,7 @@ public class Controller : MonoBehaviour
     private void Update()
     {
         PauseMenuController();
-        if (_gameManager.isPaused) return;
+        if (_sceneLoader.isPaused) return;
         ReadMoves();
         _game.Update();
         _view.ChangeGameObjectsPositions();
@@ -100,7 +100,7 @@ public class Controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _gameManager.LoadPauseMenu();
+            _sceneLoader.LoadPauseMenu();
             
         }
     }
