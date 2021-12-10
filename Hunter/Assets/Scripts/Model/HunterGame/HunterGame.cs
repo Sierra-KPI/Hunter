@@ -25,6 +25,7 @@ namespace Hunter.Model.HunterGame
             foreach (AnimalType animalType in
                 (AnimalType[])Enum.GetValues(typeof(AnimalType)))
             {
+                List<Animal> animalsToBeKilled = new List<Animal>();
                 foreach (Animal animal in Entities[animalType])
                 {
                     animal.Move();
@@ -33,8 +34,13 @@ namespace Hunter.Model.HunterGame
 
                     if (animal.IsBehindBoard(_deadBorder))
                     {
-                        KillAnimal(animal);
+                        animalsToBeKilled.Add(animal);
                     }
+                }
+
+                foreach (Animal animal in animalsToBeKilled)
+                {
+                    KillAnimal(animal);
                 }
             }
         }
