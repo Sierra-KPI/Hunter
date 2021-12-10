@@ -16,12 +16,18 @@ namespace Hunter.Model.Behaviours
                 List<Entity> target = new List<Entity>();
                 float minDistance = float.MaxValue;
                 Vector2 _targetPosition = animal.Position;
+
                 if (animal.Entities.Count != 0)
                 {
+                    target.Add(animal.Entities[0]);
+
                     foreach (Entity entity in animal.Entities)
                     {
-                        target.Add(animal.Entities[0]);
-                        float targetDistance = Vector2.Distance(animal.Position, target[0].Position);
+                        target[0] = entity;
+
+                        float targetDistance = Vector2.Distance(animal.Position,
+                            target[0].Position);
+
                         if (targetDistance < minDistance)
                         {
                             minDistance = targetDistance;
