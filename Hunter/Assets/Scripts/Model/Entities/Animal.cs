@@ -37,7 +37,7 @@ namespace Hunter.Model.Entities
             Velocity = new Vector2(xPos, yPos);
         }
 
-        public void GetEntititesInArea(List<Entity> allEntities)
+        public void GetEntitiesInArea(List<Entity> allEntities)
         {
             List<Entity> areaEntities = new List<Entity>();
 

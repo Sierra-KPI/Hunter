@@ -26,7 +26,7 @@ namespace Hunter.Model.HunterGame
                 foreach (Animal animal in Entities[animalType])
                 {
                     animal.Move();
-                    animal.GetEntititesInArea(Entities.SelectMany(d => d.Value).ToList());
+                    animal.GetEntitiesInArea(Entities.SelectMany(d => d.Value).ToList());
                 }
             }
         }

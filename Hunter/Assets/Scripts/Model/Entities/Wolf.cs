@@ -10,15 +10,15 @@ namespace Hunter.Model.Entities
     {
         public float RunSpeed { get; set; }
 
-        //public static void lifeSpan()
-        //{
-        //    Wolf wolf = new Wolf();
-        //    Timer Hunger = new System.Timers.Timer();
-        //    Hunger.Interval = 5000;
-        //    Hunger.AutoReset = false;
-        //    Hunger.Enabled = true;
-        //    //Hunger.Elapsed += wolf.Die();
-        //}
+        public static void lifeSpan()
+        {
+            Wolf wolf = new Wolf();
+            Timer Hunger = new System.Timers.Timer();
+            Hunger.Interval = 5000;
+            Hunger.AutoReset = false;
+            Hunger.Enabled = true;
+            //Hunger.Elapsed += wolf.Die();
+        }
 
         public Wolf() : base()
         {
@@ -52,7 +52,8 @@ namespace Hunter.Model.Entities
         public override void Move()
         {
             Vector2 steering = WanderBehaviour.Wander(this);
-            Velocity = Vector2.Multiply(Velocity + steering, MaxSpeed);
+            Vector2 chasing = PursueBehaviour.Chase(this);
+            Velocity = Vector2.Multiply(Velocity + steering + chasing, MaxSpeed);
             Position += Velocity;
         }
     }
