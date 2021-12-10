@@ -12,10 +12,7 @@ namespace Hunter.Model.Entities
             MaxSpeed = 1 * 0.01f;
         }
 
-
-        public override void Move()
-        {
-        }
+        public override void Move(){}
 
         public void MoveTo(float h, float v)
         {
@@ -24,11 +21,7 @@ namespace Hunter.Model.Entities
             Position += Velocity;
         }
 
-        public bool HasBullets()
-        {
-            if (_bullets > 0) return true;
-            return false;
-        }
+        public bool HasBullets() => _bullets > 0;
 
         public bool MakeShot()
         {
@@ -37,6 +30,7 @@ namespace Hunter.Model.Entities
                 _bullets--;
                 return true;
             }
+
             return false;
         }
     }

@@ -49,9 +49,11 @@ namespace Hunter.Model.Entities
         {
             Vector2 steering = WanderBehaviour.Wander(this);
             Vector2 borderAvoidence = AvoidBordersBehaviour.AvoidBorders(this);
+
             Velocity = Vector2.Multiply(Velocity + steering, MaxSpeed);
             Velocity = Vector2.Multiply(Velocity +
-                borderAvoidence, MaxSpeed * 400);
+                borderAvoidence, MaxSpeed * 600);
+
             Position += Velocity;
         }
     }
