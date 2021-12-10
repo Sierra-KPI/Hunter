@@ -8,6 +8,7 @@ public class Controller : MonoBehaviour
 {
     private HunterGame _game;
     private View _view;
+    private SceneLoader _sceneLoader;
 
     [Header("Game Settings")]
 
@@ -36,16 +37,24 @@ public class Controller : MonoBehaviour
         _view = gameObject.AddComponent<View>();
         _view.LineMaterial = _lineMaterial;
 
+        _sceneLoader = gameObject.AddComponent<SceneLoader>();
+        _sceneLoader.SetPauseMenu();
+        
         _view.CreateHunter(_game.Hunter, _hunterPrefab);
         CreateAnimals();
     }
 
     private void Update()
     {
+        PauseMenuController();
+        if (_sceneLoader.isPaused) return;
         ReadMoves();
         _game.Update();
         _view.ChangeGameObjectsPositions();
         _view.DeleteDeadAnimals();
+
+        //CheckGameEnd();
+
     }
 
     private void CreateAnimals()
@@ -82,6 +91,7 @@ public class Controller : MonoBehaviour
                 Debug.Log("Make Shot");
                 var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x,
                     vectorEnd.y);
+
                 var shotLength = _game.Hunter.ShotDistance;
 
                 if (deadAnimal != null)
@@ -102,5 +112,22 @@ public class Controller : MonoBehaviour
     {
         HunterControler();
         MousePosition();
+    }
+
+    private void PauseMenuController()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _sceneLoader.LoadPauseMenu();
+            
+        }
+    }
+
+    private void CheckGameEnd()
+    {
+        if (_game.GetAllEntities().Count == 0)
+        {
+            _sceneLoader.LoadWinningGameEnd();
+        }
     }
 }
