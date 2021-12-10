@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Hunter.Model.Behaviours;
+using Hunter.Model.HunterGame;
 using System.Timers;
 
 namespace Hunter.Model.Entities
@@ -17,14 +18,22 @@ namespace Hunter.Model.Entities
             Hunger.Interval = 5000;
             Hunger.AutoReset = false;
             Hunger.Enabled = true;
-            //Hunger.Elapsed += wolf.Die();
+            //Hunger.Elapsed += DieFromHunger;
         }
+
+        //private static Wolf DieFromHunger(Wolf wolf, bool toDie)
+        //{
+        //    if (KillAnimal(wolf))
+        //    {
+        //        return wolf;
+        //    }
+        //}
 
         public Wolf() : base()
         {
-            MaxSpeed = 1f * 0.001f;
+            MaxSpeed = 1.5f * 0.001f;
             BodyRadius = 0.5f;
-            BodySeekRadius = 30;
+            BodySeekRadius = 4;
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;

@@ -48,7 +48,8 @@ namespace Hunter.Model.Entities
         public override void Move()
         {
             Vector2 steering = WanderBehaviour.Wander(this);
-            Velocity = Vector2.Multiply(Velocity + steering, MaxSpeed);
+            Vector2 fleeing = FleetBehaviour.RunAway(this);
+            Velocity = Vector2.Multiply(Velocity + steering + fleeing, MaxSpeed);
             Position += Velocity;
         }
     }

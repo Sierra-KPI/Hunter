@@ -18,25 +18,26 @@ namespace Hunter.Model.Behaviours
                 Vector2 _targetPosition = animal.Position;
                 if (animal.Entities.Count != 0)
                 {
-                    target.Add(animal.Entities[0]);
                     foreach (Entity entity in animal.Entities)
                     {
-                    float targetDistance = Vector2.Distance(animal.Position, target[0].Position);
-                    if (targetDistance < minDistance)
-                    {
-                        minDistance = targetDistance;
-                        _targetPosition = entity.Position;
+                        target.Add(animal.Entities[0]);
+                        float targetDistance = Vector2.Distance(animal.Position, target[0].Position);
+                        if (targetDistance < minDistance)
+                        {
+                            minDistance = targetDistance;
+                            _targetPosition = entity.Position;
+                        }
+                        else continue;
                     }
-                    else continue;
-                    }
-                } else
+                }
+                else
                 {
                     _targetPosition = Vector2.Zero;
                 }
                 return _targetPosition;
             }
             Vector2 targetPosition = GetTargetPosition();
-            Vector2 desiredVelocity = Vector2.Multiply(animal.Position + targetPosition, animal.MaxSpeed);
+            Vector2 desiredVelocity = Vector2.Add(targetPosition, -animal.Position);
             return desiredVelocity;
         }
 
