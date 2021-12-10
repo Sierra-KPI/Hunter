@@ -10,7 +10,7 @@ namespace Hunter.Model.HunterGame
     {
         public Dictionary<AnimalType, List<Entity>> Entities = new();
         public HunterPlayer Hunter;
-        private readonly float _deadBorder = 5f;
+        private readonly float _deadBorder = 10f; // CHANGE
 
         public HunterGame(int rabbits, int deers, int wolfs)
         {

@@ -5,7 +5,7 @@ namespace Hunter.Model.Behaviours
 {
     public static class AvoidBordersBehaviour
     {
-        private static readonly float s_safeBorder = 4f;
+        private static readonly float s_safeBorder = 12f; // CHANGE
 
         public static Vector2 AvoidBorders(Animal animal)
         {
