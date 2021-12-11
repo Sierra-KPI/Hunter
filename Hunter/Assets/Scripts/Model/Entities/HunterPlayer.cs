@@ -11,6 +11,7 @@ namespace Hunter.Model.Entities
         {
             MaxSpeed = 2 * 0.01f;
             EntityType = EntityType.Hunter;
+            BodyRadius = 0.5f;
         }
 
         public override void Move() { }
