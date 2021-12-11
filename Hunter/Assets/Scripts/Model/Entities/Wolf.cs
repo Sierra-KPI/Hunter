@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Timers;
 using Hunter.Model.Behaviours;
 
 namespace Hunter.Model.Entities
@@ -9,24 +8,8 @@ namespace Hunter.Model.Entities
     public class Wolf : Animal
     {
         public float RunSpeed { get; set; }
-
-        public static void lifeSpan()
-        {
-            Wolf wolf = new Wolf();
-            Timer Hunger = new System.Timers.Timer();
-            Hunger.Interval = 5000;
-            Hunger.AutoReset = false;
-            Hunger.Enabled = true;
-            //Hunger.Elapsed += DieFromHunger;
-        }
-
-        //private static Wolf DieFromHunger(Wolf wolf, bool toDie)
-        //{
-        //    if (KillAnimal(wolf))
-        //    {
-        //        return wolf;
-        //    }
-        //}
+        public int Hunger { get; set; }
+        public int maxHunger = 5000;
 
         public Wolf() : base()
         {
@@ -36,6 +19,7 @@ namespace Hunter.Model.Entities
             WanderCircleDistance = 10;
             WanderCircleRadius = 4;
             MaxWanderShift = 3;
+            Hunger = maxHunger;
 
             EntityType = EntityType.Wolf;
         }
@@ -60,12 +44,23 @@ namespace Hunter.Model.Entities
 
         public override void Move()
         {
+            CheckWolfHunger();
             Vector2 wander = WanderBehaviour.Wander(this);
             Vector2 chasing = PursueBehaviour.Chase(this);
             Vector2 borderAvoidence = AvoidBordersBehaviour.AvoidBorders(this);
             Velocity = Vector2.Multiply(Velocity + wander + chasing, MaxSpeed);
             Velocity = Vector2.Multiply(Velocity + borderAvoidence, MaxSpeed * 600);
             Position += Velocity;
+        }
+
+
+        private void CheckWolfHunger()
+        {
+            if (Hunger <= 0)
+            {
+                IsDead = true;
+            }
+            Hunger -= 5;
         }
     }
 }

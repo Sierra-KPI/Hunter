@@ -143,7 +143,7 @@ namespace Hunter.Model.HunterGame
 
         public Animal TryToKillAnimalByWolf()
         {
-            foreach (Animal wolf in Entities[EntityType.Wolf])
+            foreach (Wolf wolf in Entities[EntityType.Wolf])
             {
                 foreach (Entity animal in wolf.Entities)
                 {
@@ -153,6 +153,7 @@ namespace Hunter.Model.HunterGame
                     {
                         if (KillAnimal((Animal)animal))
                         {
+                            wolf.Hunger = wolf.maxHunger;
                             return (Animal)animal;
                         }
                     }
