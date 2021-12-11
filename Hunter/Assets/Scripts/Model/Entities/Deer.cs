@@ -9,7 +9,7 @@ namespace Hunter.Model.Entities
 
         public Deer() : base()
         {
-            MaxSpeed = 2f * 0.001f;
+            MaxSpeed = 1.4f * 0.001f;
             BodyRadius = 0.34f;
             BodySeekRadius = 4;
             WolfRadius = 5;
