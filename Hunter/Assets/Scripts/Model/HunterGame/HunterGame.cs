@@ -34,14 +34,22 @@ namespace Hunter.Model.HunterGame
                     continue;
                 }
 
-                List<Animal> animalsToBeKilled = new List<Animal>();
+                List<Animal> animalsToKill = new List<Animal>();
+
                 foreach (Animal animal in Entities[entityType])
                 {
                     animal.Move();
                     animal.GetEntitiesInArea(GetAllEntities());
 
-                    if (animal.IsBehindBoard(_deadBorder)) animal.IsDead = true;
-                    if (animal.IsDead) animalsToBeKilled.Add(animal);
+                    if (animal.IsBehindBoard(_deadBorder))
+                    {
+                        animal.IsDead = true;
+                    }
+
+                    if (animal.IsDead)
+                    {
+                        animalsToKill.Add(animal);
+                    }
 
                     if (entityType == EntityType.Deer)
                     {
@@ -49,14 +57,14 @@ namespace Hunter.Model.HunterGame
                         {
                             if (herdAnimal.IsBehindBoard(_deadBorder))
                             {
-                                animalsToBeKilled.Add(herdAnimal);
+                                animalsToKill.Add(herdAnimal);
                                 herdAnimal.IsDead = true;
                             }
                         }
                     }
                 }
 
-                foreach (Animal animal in animalsToBeKilled)
+                foreach (Animal animal in animalsToKill)
                 {
                     KillAnimal(animal);
                 }
@@ -88,11 +96,15 @@ namespace Hunter.Model.HunterGame
         public List<Entity> GetAllEntities()
         {
             List<Entity> entities = new();
-            foreach (EntityType animalType in (EntityType[])Enum.GetValues(typeof(EntityType)))
+
+            foreach (EntityType animalType in
+                (EntityType[])Enum.GetValues(typeof(EntityType)))
             {
                 entities.AddRange(GetAnimals(animalType));
             }
+
             entities.Add(Hunter);
+
             return entities;
         }
 
@@ -105,9 +117,11 @@ namespace Hunter.Model.HunterGame
                 (EntityType[])Enum.GetValues(typeof(EntityType)))
             {
                 var list = GetAnimals(animalType);
+
                 foreach (Animal animalEntity in list)
                 {
-                    var animalVector = (animalEntity.Position - Hunter.Position);
+                    var animalVector = animalEntity.Position - Hunter.Position;
+
                     if (animalVector.Length() > Hunter.ShotDistance)
                     {
                         continue;
@@ -117,8 +131,8 @@ namespace Hunter.Model.HunterGame
                         animalVector.Length());
 
                     double shotAngle = Math.Acos((shotVector.X *
-                        animalVector.X + shotVector.Y * animalVector.Y) / (
-                        shotVector.Length() * animalVector.Length()));
+                        animalVector.X + shotVector.Y * animalVector.Y) /
+                        (shotVector.Length() * animalVector.Length()));
 
                     maxAngle = TransformAngle(maxAngle);
                     shotAngle = TransformAngle(shotAngle);
@@ -142,12 +156,19 @@ namespace Hunter.Model.HunterGame
             {
                 foreach (Entity animal in wolf.Entities)
                 {
-                    if (animal.EntityType == EntityType.Hunter || animal.EntityType == EntityType.Wolf) continue;
-                    if (CollisionDetection.AreColliding(wolf, animal, wolf.BodyRadius, animal.BodyRadius))
+                    if (animal.EntityType == EntityType.Hunter ||
+                        animal.EntityType == EntityType.Wolf)
+                    {
+                        continue;
+                    }
+
+                    if (CollisionDetection.AreColliding(wolf, animal,
+                        wolf.BodyRadius, animal.BodyRadius))
                     {
                         if (KillAnimal((Animal)animal))
                         {
                             wolf.Hunger = wolf.maxHunger;
+
                             return (Animal)animal;
                         }
                     }
@@ -184,14 +205,14 @@ namespace Hunter.Model.HunterGame
         {
             foreach (Animal wolf in Entities[EntityType.Wolf])
             {
-                if (CollisionDetection.AreColliding(wolf, Hunter, wolf.BodyRadius, Hunter.BodyRadius))
+                if (CollisionDetection.AreColliding(wolf, Hunter, wolf.BodyRadius,
+                    Hunter.BodyRadius))
                 {
                     return true;
                 }
             }
             return false;
         }
-
 
         private double TransformAngle(double angle)
         {

@@ -50,7 +50,12 @@ public class Controller : MonoBehaviour
     private void Update()
     {
         PauseMenuController();
-        if (_sceneLoader.isPaused) return;
+
+        if (_sceneLoader.isPaused)
+        {
+            return;
+        }
+
         ReadMoves();
         TryToKillByWolf();
         _game.Update();
@@ -61,7 +66,9 @@ public class Controller : MonoBehaviour
 
     private void CreateEntities()
     {
-        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab, _hunterPrefab);
+        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab,
+            _hunterPrefab);
+
         foreach (EntityType entityType in
             (EntityType[])Enum.GetValues(typeof(EntityType)))
         {
@@ -81,6 +88,7 @@ public class Controller : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+
         _game.Hunter.MoveTo(h, v);
     }
 
@@ -88,7 +96,8 @@ public class Controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Vector3 screenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
+            Vector3 screenPosition = new Vector3(Input.mousePosition.x,
+                Input.mousePosition.y);
             Vector3 vector = Camera.main.ScreenToWorldPoint(screenPosition);
             vector.z = 0;
             TryToKillByHunter(vector);
@@ -97,15 +106,20 @@ public class Controller : MonoBehaviour
 
     private void TryToKillByHunter(Vector3 vectorEnd)
     {
-        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
+        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X,
+            _game.Hunter.Position.Y);
+
         if (_game.Hunter.MakeShot())
         {
-            var deadAnimal = _game.TryToKillAnimalByHunter(vectorEnd.x, vectorEnd.y);
+            var deadAnimal = _game.TryToKillAnimalByHunter(vectorEnd.x,
+                vectorEnd.y);
             var shotLength = _game.Hunter.ShotDistance;
+
             if (deadAnimal != null)
             {
                 _view.DestroyEntity(deadAnimal);
-                shotLength = (_game.Hunter.Position - deadAnimal.Position).Length();
+                shotLength = (_game.Hunter.Position -
+                    deadAnimal.Position).Length();
             }
 
             var direction = (vectorEnd - vectorStart).normalized;
@@ -117,11 +131,14 @@ public class Controller : MonoBehaviour
     private void TryToKillByWolf()
     {
         var deadAnimal = _game.TryToKillAnimalByWolf();
+
         if (deadAnimal != null)
         {
             _view.DestroyEntity(deadAnimal);
         }
+
         var isHunterDead = _game.TryToKillHunter();
+
         if (isHunterDead)
         {
             _sceneLoader.LoadLoosingGameEnd();
@@ -145,10 +162,13 @@ public class Controller : MonoBehaviour
     private void CheckGameEnd()
     {
         var allEntities = _game.GetAllEntities();
-        if (allEntities.Count == 1 && allEntities[0].EntityType == EntityType.Hunter)
+
+        if (allEntities.Count == 1 && allEntities[0].EntityType ==
+            EntityType.Hunter)
         {
             _sceneLoader.LoadWinningGameEnd();
         }
+
         if (_game.Hunter.IsDead)
         {
             _sceneLoader.LoadLoosingGameEnd();

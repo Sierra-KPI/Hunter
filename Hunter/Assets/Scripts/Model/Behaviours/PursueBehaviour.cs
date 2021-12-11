@@ -37,12 +37,14 @@ namespace Hunter.Model.Behaviours
                 {
                     _targetPosition = Vector2.Zero;
                 }
+
                 return _targetPosition;
             }
             Vector2 targetPosition = GetTargetPosition();
-            Vector2 desiredVelocity = Vector2.Add(targetPosition, -animal.Position);
+            Vector2 desiredVelocity = Vector2.Add(targetPosition,
+                -animal.Position);
+
             return desiredVelocity;
         }
-
     }
 }
