@@ -33,9 +33,9 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        int _rabbitsNumber = EntityFactory.GetAnimalsNumber(AnimalType.Rabbit);
-        int _deersNumber = EntityFactory.GetAnimalsNumber(AnimalType.Deer) / 10;
-        int _wolvesNumber = EntityFactory.GetAnimalsNumber(AnimalType.Wolf);
+        int _rabbitsNumber = EntityFactory.GetAnimalsNumber(EntityType.Rabbit);
+        int _deersNumber = EntityFactory.GetAnimalsNumber(EntityType.Deer) / 10;
+        int _wolvesNumber = EntityFactory.GetAnimalsNumber(EntityType.Wolf);
 
         _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
         _view = gameObject.AddComponent<View>();
@@ -44,7 +44,7 @@ public class Controller : MonoBehaviour
         _sceneLoader = gameObject.AddComponent<SceneLoader>();
         _sceneLoader.SetPauseMenu();
         
-        _view.CreateHunter(_game.Hunter, _hunterPrefab);
+        //_view.CreateHunter(_game.Hunter, _hunterPrefab);
         CreateAnimals();
     }
 
@@ -64,12 +64,20 @@ public class Controller : MonoBehaviour
 
     private void CreateAnimals()
     {
-        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab);
-        foreach (AnimalType animalType in
-            (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab, _hunterPrefab);
+        foreach (EntityType animalType in
+            (EntityType[])Enum.GetValues(typeof(EntityType)))
         {
-            List<Entity> animals = _game.GetAnimals(animalType);
-            _view.CreateEntities(animals);
+            if (animalType == EntityType.Hunter)
+            {
+                _view.CreateHunter(_game.Hunter);
+            }
+            else
+            {
+                List<Entity> animals = _game.GetAnimals(animalType);
+                _view.CreateEntities(animals);
+            }
+            
         }
     }
 
@@ -145,7 +153,7 @@ public class Controller : MonoBehaviour
 
     private void CheckGameEnd()
     {
-        if (_game.GetAllEntities().Count == 0)
+        if (_game.GetAllEntities().Count == 1)
         {
             _sceneLoader.LoadWinningGameEnd();
         }

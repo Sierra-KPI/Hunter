@@ -1,10 +1,11 @@
 ﻿
 namespace Hunter.Model.Entities
 {
-    public enum AnimalType
+    public enum EntityType
     {
         Rabbit,
         Deer,
-        Wolf
+        Wolf,
+        Hunter
     }
 }

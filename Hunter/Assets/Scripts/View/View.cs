@@ -9,31 +9,38 @@ public class View : MonoBehaviour
 
     public Material LineMaterial;
 
-    public void CreateHunter(HunterPlayer hunter, GameObject hunterPrefab)
+    public void CreateHunter(HunterPlayer hunter)
     {
-        GameObject obj = Instantiate(hunterPrefab);
+        GameObject obj = _entityFactory.GetEntity(hunter);
         _entities.Add(hunter, obj);
     }
 
-    public void CreateEntityObjects(GameObject _rabbitsPrefab, GameObject _deersPrefab, GameObject _wolvesPrefab)
+    public void CreateEntityObjects(GameObject _rabbitsPrefab, GameObject _deersPrefab,
+        GameObject _wolvesPrefab, GameObject _hunterPrefab)
     {
         var _rabbitObject = new EntityObject(
-            AnimalType.Rabbit,
+            EntityType.Rabbit,
             _rabbitsPrefab
         );
         _entityFactory.AddEntityObject(_rabbitObject);
 
         var _deerObject = new EntityObject(
-            AnimalType.Deer,
+            EntityType.Deer,
             _deersPrefab
         );
         _entityFactory.AddEntityObject(_deerObject);
 
         var _wolfObject = new EntityObject(
-            AnimalType.Wolf,
+            EntityType.Wolf,
             _wolvesPrefab
         );
         _entityFactory.AddEntityObject(_wolfObject);
+
+        var _hunterObject = new EntityObject(
+            EntityType.Hunter,
+            _hunterPrefab
+        );
+        _entityFactory.AddEntityObject(_hunterObject);
 
         _entityFactory.CreateEntityObjects();
     }
@@ -50,7 +57,7 @@ public class View : MonoBehaviour
     public void DestroyEntity(Animal animal)
     {
         var obj = _entities.GetValueOrDefault(animal);
-        _entityFactory.ReturnEntity(obj, animal.AnimalType);
+        _entityFactory.ReturnEntity(obj, animal.EntityType);
     }
 
     public void ChangeGameObjectsPositions()

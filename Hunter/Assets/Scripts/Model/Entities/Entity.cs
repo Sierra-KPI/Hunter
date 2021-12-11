@@ -12,6 +12,8 @@ namespace Hunter.Model.Entities
         public Vector2 Position { get; set; }
         public float MaxSpeed { get; set; }
 
+        public EntityType EntityType;
+
         public abstract void Move();
         public bool IsDead { get; set; }
 

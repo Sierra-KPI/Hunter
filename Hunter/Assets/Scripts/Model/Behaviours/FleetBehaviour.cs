@@ -56,8 +56,8 @@ namespace Hunter.Model.Behaviours
                     target.Add(animal.Entities[0]);
                     foreach (Entity entity in animal.Entities)
                     {
-                        if ((entity as Animal).AnimalType != animal.AnimalType &&
-                            (entity as Animal).AnimalType != AnimalType.Rabbit)
+                        if (entity.EntityType != animal.EntityType &&
+                            entity.EntityType != EntityType.Rabbit)
                         {
                             target[0] = entity;
 

@@ -8,24 +8,25 @@ namespace Hunter.Model.HunterGame
 {
     public class HunterGame
     {
-        public Dictionary<AnimalType, List<Entity>> Entities = new();
+        public Dictionary<EntityType, List<Entity>> Entities = new();
         public HunterPlayer Hunter;
         private readonly float _deadBorder = 8f; // CHANGE
 
         public HunterGame(int rabbits, int deers, int wolves)
         {
-            Entities.Add(AnimalType.Rabbit, Rabbit.CreateEntities(rabbits));
-            Entities.Add(AnimalType.Deer, Herd.CreateEntities(deers));
-            Entities.Add(AnimalType.Wolf, Wolf.CreateEntities(wolves));
+            Entities.Add(EntityType.Rabbit, Rabbit.CreateEntities(rabbits));
+            Entities.Add(EntityType.Deer, Herd.CreateEntities(deers));
+            Entities.Add(EntityType.Wolf, Wolf.CreateEntities(wolves));
 
             Hunter = new HunterPlayer();
         }
 
         public void Update()
         {
-            foreach (AnimalType animalType in
-                (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+            foreach (EntityType animalType in
+                (EntityType[])Enum.GetValues(typeof(EntityType)))
             {
+                if (animalType == EntityType.Hunter) continue;
                 List<Animal> animalsToBeKilled = new List<Animal>();
                 foreach (Animal animal in Entities[animalType])
                 {
@@ -38,7 +39,7 @@ namespace Hunter.Model.HunterGame
                         animal.IsDead = true;
                     }
 
-                    if (animalType == AnimalType.Deer)
+                    if (animalType == EntityType.Deer)
                     {
                         foreach (Animal herdAnimal in ((Herd)animal).GetAnimals())
                         {
@@ -58,15 +59,15 @@ namespace Hunter.Model.HunterGame
             }
         }
 
-        public List<Entity> GetAnimals(AnimalType animalType)
+        public List<Entity> GetAnimals(EntityType animalType)
         {
             List<Entity> entities = new();
             switch (animalType)
             {
-                case AnimalType.Rabbit:
+                case EntityType.Rabbit:
                     entities = Entities[animalType];
                     break;
-                case AnimalType.Deer:
+                case EntityType.Deer:
                     foreach (Herd herd in Entities[animalType])
                     {
                         foreach (Animal anim in herd.GetAnimals())
@@ -75,7 +76,7 @@ namespace Hunter.Model.HunterGame
                         }
                     }
                     break;
-                case AnimalType.Wolf:
+                case EntityType.Wolf:
                     entities = Entities[animalType];
                     break;
             }
@@ -85,10 +86,11 @@ namespace Hunter.Model.HunterGame
         public List<Entity> GetAllEntities()
         {
             List<Entity> entities = new();
-            foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+            foreach (EntityType animalType in (EntityType[])Enum.GetValues(typeof(EntityType)))
             {
                 entities.AddRange(GetAnimals(animalType));
             }
+            entities.Add(Hunter);
             return entities;
         }
 
@@ -97,8 +99,8 @@ namespace Hunter.Model.HunterGame
             var shot = new Vector2(shotX, shotY);
             var shotVector = shot - Hunter.Position;
 
-            foreach (AnimalType animalType in
-                (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+            foreach (EntityType animalType in
+                (EntityType[])Enum.GetValues(typeof(EntityType)))
             {
                 var list = GetAnimals(animalType);
                 foreach (Animal animalEntity in list)
@@ -134,16 +136,17 @@ namespace Hunter.Model.HunterGame
 
         public Animal TryToKillAnimalByWolf()
         {
-            foreach (Animal wolf in Entities[AnimalType.Wolf])
+            foreach (Animal wolf in Entities[EntityType.Wolf])
             {
-                foreach (Animal animal in wolf.Entities)
+                foreach (Entity animal in wolf.Entities)
                 {
-                    if (animal.AnimalType == AnimalType.Wolf) continue;
+                    if (animal is HunterPlayer) continue;
+                    if (((Animal)animal).EntityType == EntityType.Wolf) continue;
                     if (CollisionDetection.AreColliding(wolf, animal, wolf.BodyRadius, animal.BodyRadius))
                     {
-                        if (KillAnimal(animal))
+                        if (KillAnimal((Animal)animal))
                         {
-                            return animal;
+                            return (Animal)animal;
                         }
                     }
                 }
@@ -153,19 +156,19 @@ namespace Hunter.Model.HunterGame
 
         private bool KillAnimal(Animal animal)
         {
-            switch (animal.AnimalType)
+            switch (animal.EntityType)
             {
-                case AnimalType.Rabbit:
-                case AnimalType.Wolf:
-                    return Entities[animal.AnimalType].Remove(animal);
-                case AnimalType.Deer:
-                    foreach (Herd herd in Entities[animal.AnimalType])
+                case EntityType.Rabbit:
+                case EntityType.Wolf:
+                    return Entities[animal.EntityType].Remove(animal);
+                case EntityType.Deer:
+                    foreach (Herd herd in Entities[animal.EntityType])
                     {
                         if (herd.RemoveAnimal((HerdAnimal)animal))
                         {
                             if (herd.GetAnimals().GetLength(0) == 0)
                             {
-                                Entities[animal.AnimalType].Remove(herd);
+                                Entities[animal.EntityType].Remove(herd);
                             }
                             return true;
                         }
@@ -177,7 +180,7 @@ namespace Hunter.Model.HunterGame
 
         public bool TryToKillHunter()
         {
-            foreach (Animal wolf in Entities[AnimalType.Wolf])
+            foreach (Animal wolf in Entities[EntityType.Wolf])
             {
                 if (CollisionDetection.AreColliding(wolf, Hunter, wolf.BodyRadius, Hunter.BodyRadius))
                 {

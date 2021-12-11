@@ -13,8 +13,6 @@ namespace Hunter.Model.Entities
         public float WanderAngle { get; set; }
         public float MaxWanderShift { get; set; }
 
-        public AnimalType AnimalType;
-
         public Animal()
         {
             Random random = new Random();

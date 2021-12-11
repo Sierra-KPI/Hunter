@@ -29,7 +29,7 @@ namespace Hunter.Model.Behaviours
                             target[0].Position);
 
                         if (targetDistance < minDistance &&
-                            (entity as Animal).GetType() != animal.GetType())
+                            entity.EntityType != animal.EntityType)
                         {
                             minDistance = targetDistance;
                             _targetPosition = entity.Position;

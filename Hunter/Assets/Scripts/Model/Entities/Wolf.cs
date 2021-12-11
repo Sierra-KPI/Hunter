@@ -38,7 +38,7 @@ namespace Hunter.Model.Entities
             WanderCircleRadius = 4;
             MaxWanderShift = 3;
 
-            AnimalType = AnimalType.Wolf;
+            EntityType = EntityType.Wolf;
         }
 
         public static List<Entity> CreateEntities(int numberOfWolves)
