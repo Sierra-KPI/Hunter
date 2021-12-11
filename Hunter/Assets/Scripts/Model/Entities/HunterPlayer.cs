@@ -9,9 +9,9 @@ namespace Hunter.Model.Entities
 
         public HunterPlayer()
         {
-            MaxSpeed = 2 * 0.01f;
+            MaxSpeed = 1.3f * 0.01f;
             EntityType = EntityType.Hunter;
-            BodyRadius = 0.5f;
+            BodyRadius = 0.3f;
         }
 
         public override void Move() { }
