@@ -9,7 +9,7 @@ namespace Hunter.Model.Entities
 
         public Deer() : base()
         {
-            MaxSpeed = 1f * 0.001f;
+            MaxSpeed = 2f * 0.001f;
             BodyRadius = 0.34f;
             BodySeekRadius = 4;
             WolfRadius = 5;
@@ -24,8 +24,9 @@ namespace Hunter.Model.Entities
         {
             Vector2 wander = WanderBehaviour.Wander(this);
             Vector2 borderAvoidence = AvoidBordersBehaviour.AvoidBorders(this);
-            Vector2 herdBehaviour = HerdBehaviour.GetHerdVelocity(Deers, this);
             Vector2 fleeing = FleeBehaviour.RunAway(this);
+            Vector2 herdBehaviour = HerdBehaviour.GetHerdVelocity(Deers, this);
+
             if (Deers.GetLength(0) == 1)
             {
                 Velocity = Vector2.Multiply(Velocity + wander + fleeing, MaxSpeed);

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Hunter.Model.Behaviours;
-using Hunter.Model.HunterGame;
 using System.Timers;
+using Hunter.Model.Behaviours;
 
 namespace Hunter.Model.Entities
 {
@@ -61,10 +60,10 @@ namespace Hunter.Model.Entities
 
         public override void Move()
         {
-            Vector2 steering = WanderBehaviour.Wander(this);
+            Vector2 wander = WanderBehaviour.Wander(this);
             Vector2 chasing = PursueBehaviour.Chase(this);
             Vector2 borderAvoidence = AvoidBordersBehaviour.AvoidBorders(this);
-            Velocity = Vector2.Multiply(Velocity + steering + chasing, MaxSpeed);
+            Velocity = Vector2.Multiply(Velocity + wander + chasing, MaxSpeed);
             Velocity = Vector2.Multiply(Velocity + borderAvoidence, MaxSpeed * 600);
             Position += Velocity;
         }

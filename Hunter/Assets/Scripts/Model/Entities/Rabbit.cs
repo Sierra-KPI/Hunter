@@ -47,10 +47,10 @@ namespace Hunter.Model.Entities
 
         public override void Move()
         {
-            Vector2 steering = WanderBehaviour.Wander(this);
+            Vector2 wander = WanderBehaviour.Wander(this);
             Vector2 borderAvoidence = AvoidBordersBehaviour.AvoidBorders(this);
             Vector2 fleeing = FleeBehaviour.RunAway(this);
-            Velocity = Vector2.Multiply(Velocity + steering + fleeing, MaxSpeed);
+            Velocity = Vector2.Multiply(Velocity + wander + fleeing, MaxSpeed);
             Velocity = Vector2.Multiply(Velocity +
                 borderAvoidence, MaxSpeed * 600);
             //Velocity = Vector2.Multiply(Velocity + fleeing, RunSpeed);
