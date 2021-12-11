@@ -23,12 +23,12 @@ namespace Hunter.Model.HunterGame
 
         public void Update()
         {
-            foreach (EntityType animalType in
+            foreach (EntityType entityType in
                 (EntityType[])Enum.GetValues(typeof(EntityType)))
             {
-                if (animalType == EntityType.Hunter) continue;
+                if (entityType == EntityType.Hunter) continue;
                 List<Animal> animalsToBeKilled = new List<Animal>();
-                foreach (Animal animal in Entities[animalType])
+                foreach (Animal animal in Entities[entityType])
                 {
                     animal.Move();
                     animal.GetEntitiesInArea(GetAllEntities());
@@ -39,7 +39,7 @@ namespace Hunter.Model.HunterGame
                         animal.IsDead = true;
                     }
 
-                    if (animalType == EntityType.Deer)
+                    if (entityType == EntityType.Deer)
                     {
                         foreach (Animal herdAnimal in ((Herd)animal).GetAnimals())
                         {
@@ -59,16 +59,16 @@ namespace Hunter.Model.HunterGame
             }
         }
 
-        public List<Entity> GetAnimals(EntityType animalType)
+        public List<Entity> GetAnimals(EntityType entityType)
         {
             List<Entity> entities = new();
-            switch (animalType)
+            switch (entityType)
             {
                 case EntityType.Rabbit:
-                    entities = Entities[animalType];
+                    entities = Entities[entityType];
                     break;
                 case EntityType.Deer:
-                    foreach (Herd herd in Entities[animalType])
+                    foreach (Herd herd in Entities[entityType])
                     {
                         foreach (Animal anim in herd.GetAnimals())
                         {
@@ -77,7 +77,7 @@ namespace Hunter.Model.HunterGame
                     }
                     break;
                 case EntityType.Wolf:
-                    entities = Entities[animalType];
+                    entities = Entities[entityType];
                     break;
             }
             return entities;

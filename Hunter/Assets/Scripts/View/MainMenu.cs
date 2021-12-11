@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
         foreach (var slider in _sliders)
         {
             string name = slider.name.Substring(0, slider.name.Length - 6);
-            EntityFactory.AnimalsNumber[name] = (int)slider.value;
+            EntityFactory.EntitiesNumber[name] = (int)slider.value;
         }
 
         SceneManager.LoadScene(_mainSceneName);

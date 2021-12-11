@@ -33,9 +33,9 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        int _rabbitsNumber = EntityFactory.GetAnimalsNumber(EntityType.Rabbit);
-        int _deersNumber = EntityFactory.GetAnimalsNumber(EntityType.Deer) / 10;
-        int _wolvesNumber = EntityFactory.GetAnimalsNumber(EntityType.Wolf);
+        int _rabbitsNumber = EntityFactory.GetEntitiesNumber(EntityType.Rabbit);
+        int _deersNumber = EntityFactory.GetEntitiesNumber(EntityType.Deer) / 10;
+        int _wolvesNumber = EntityFactory.GetEntitiesNumber(EntityType.Wolf);
 
         _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
         _view = gameObject.AddComponent<View>();
@@ -44,8 +44,7 @@ public class Controller : MonoBehaviour
         _sceneLoader = gameObject.AddComponent<SceneLoader>();
         _sceneLoader.SetPauseMenu();
         
-        //_view.CreateHunter(_game.Hunter, _hunterPrefab);
-        CreateAnimals();
+        CreateEntities();
     }
 
     private void Update()
@@ -62,19 +61,19 @@ public class Controller : MonoBehaviour
 
     }
 
-    private void CreateAnimals()
+    private void CreateEntities()
     {
         _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab, _hunterPrefab);
-        foreach (EntityType animalType in
+        foreach (EntityType entityType in
             (EntityType[])Enum.GetValues(typeof(EntityType)))
         {
-            if (animalType == EntityType.Hunter)
+            if (entityType == EntityType.Hunter)
             {
                 _view.CreateHunter(_game.Hunter);
             }
             else
             {
-                List<Entity> animals = _game.GetAnimals(animalType);
+                List<Entity> animals = _game.GetAnimals(entityType);
                 _view.CreateEntities(animals);
             }
             

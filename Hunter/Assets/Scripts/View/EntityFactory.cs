@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class EntityObject
 {
-    public EntityType AnimalType;
+    public EntityType EntityType;
     public GameObject Prefab;
     public int Number;
 
-    public EntityObject(EntityType animal, GameObject prefab)
+    public EntityObject(EntityType entityType, GameObject prefab)
     {
-        AnimalType = animal;
+        EntityType = entityType;
         Prefab = prefab;
-        Number = EntityFactory.GetAnimalsNumber(animal);
+        Number = EntityFactory.GetEntitiesNumber(entityType);
     }
 }
 
 public class EntityFactory : MonoBehaviour
 {
-    public static Dictionary<string, int> AnimalsNumber = new();
+    public static Dictionary<string, int> EntitiesNumber = new();
 
     public List<EntityObject> EntityObjects;
     public Dictionary<EntityType, Queue<GameObject>> EntityDictionary = new();
@@ -40,7 +40,7 @@ public class EntityFactory : MonoBehaviour
     {
         foreach (EntityObject entityObject in EntityObjects)
         {
-            if (EntityDictionary.ContainsKey(entityObject.AnimalType))
+            if (EntityDictionary.ContainsKey(entityObject.EntityType))
             {
                 break;
             }
@@ -53,49 +53,48 @@ public class EntityFactory : MonoBehaviour
                 obj.SetActive(false);
                 objectQueue.Enqueue(obj);
             }
-            Debug.Log(entityObject.AnimalType + " " + entityObject.Number);
-            EntityDictionary.Add(entityObject.AnimalType, objectQueue);
+            EntityDictionary.Add(entityObject.EntityType, objectQueue);
         }
     }
 
-    public GameObject GetEntity(Entity animal)
+    public GameObject GetEntity(Entity entity)
     {
-        if (!EntityDictionary.ContainsKey(animal.EntityType))
+        if (!EntityDictionary.ContainsKey(entity.EntityType))
         {
-            Debug.LogWarning("No such animal: " + animal.EntityType);
+            Debug.LogWarning("No such entity: " + entity.EntityType);
             return null;
         }
 
-        GameObject entityObject = EntityDictionary[animal.EntityType].Dequeue();
+        GameObject entityObject = EntityDictionary[entity.EntityType].Dequeue();
         entityObject.SetActive(true);
 
-        float xPosition = animal.Position.X;
-        float yPosition = animal.Position.Y;
+        float xPosition = entity.Position.X;
+        float yPosition = entity.Position.Y;
         entityObject.transform.localPosition =
             new Vector3(xPosition, yPosition);
 
         return entityObject;
     }
 
-    public void ReturnEntity(GameObject entityObject, EntityType animal)
+    public void ReturnEntity(GameObject entityObject, EntityType entityType)
     {
         entityObject.SetActive(false);
-        EntityDictionary[animal].Enqueue(entityObject);
+        EntityDictionary[entityType].Enqueue(entityObject);
     }
 
-    public static int GetAnimalsNumber(EntityType animalType)
+    public static int GetEntitiesNumber(EntityType entityType)
     {
         int number = 0;
-        switch (animalType)
+        switch (entityType)
         {
             case EntityType.Rabbit:
-                number = AnimalsNumber["Rabbits"];
+                number = EntitiesNumber["Rabbits"];
                 break;
             case EntityType.Deer:
-                number = AnimalsNumber["Deers"] * 10;
+                number = EntitiesNumber["Deers"] * 10;
                 break;
             case EntityType.Wolf:
-                number = AnimalsNumber["Wolves"];
+                number = EntitiesNumber["Wolves"];
                 break;
             case EntityType.Hunter:
                 number = 1;

@@ -47,17 +47,17 @@ public class View : MonoBehaviour
 
     public void CreateEntities(List<Entity> Entities)
     {
-        foreach (Animal animal in Entities)
+        foreach (Entity entity in Entities)
         {
-            GameObject entityObject = _entityFactory.GetEntity(animal);
-            _entities.Add(animal, entityObject);
+            GameObject entityObject = _entityFactory.GetEntity(entity);
+            _entities.Add(entity, entityObject);
         }
     }
 
-    public void DestroyEntity(Animal animal)
+    public void DestroyEntity(Entity entity)
     {
-        var obj = _entities.GetValueOrDefault(animal);
-        _entityFactory.ReturnEntity(obj, animal.EntityType);
+        var obj = _entities.GetValueOrDefault(entity);
+        _entityFactory.ReturnEntity(obj, entity.EntityType);
     }
 
     public void ChangeGameObjectsPositions()
