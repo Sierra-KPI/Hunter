@@ -9,7 +9,7 @@ namespace Hunter.Model.Entities
 
         public HunterPlayer()
         {
-            MaxSpeed = 1 * 0.01f;
+            MaxSpeed = 2 * 0.01f;
             EntityType = EntityType.Hunter;
         }
 
