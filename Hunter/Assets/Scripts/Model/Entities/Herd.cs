@@ -13,7 +13,7 @@ namespace Hunter.Model.Entities
             int numberOfAnimals = new Random().Next(3, 10);
             _animals = new List<HerdAnimal>();
 
-            int xPos = new Random().Next(-8, 8);
+            int xPos = new Random().Next(-18, 18);
             int yPos = new Random().Next(-8, 8);
 
             for (var i = 0; i < numberOfAnimals; i++)

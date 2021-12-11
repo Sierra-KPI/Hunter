@@ -5,11 +5,11 @@ namespace Hunter.Model.Behaviours
 {
     public static class AvoidBordersBehaviour
     {
-        private static readonly float s_safeBorder = 7.2f; // CHANGE
+        private static readonly float s_safeBorder = 9f;
 
         public static Vector2 AvoidBorders(Animal animal)
         {
-            if (animal.Position.X > s_safeBorder)
+            if (animal.Position.X > s_safeBorder * 2)
             {
                 return new Vector2(-animal.MaxSpeed, 0);
             }
@@ -17,7 +17,7 @@ namespace Hunter.Model.Behaviours
             {
                 return new Vector2(0, -animal.MaxSpeed);
             }
-            if (animal.Position.X < -s_safeBorder)
+            if (animal.Position.X < -s_safeBorder * 2)
             {
                 return new Vector2(animal.MaxSpeed, 0);
             }

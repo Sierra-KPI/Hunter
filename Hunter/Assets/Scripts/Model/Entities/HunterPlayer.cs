@@ -37,8 +37,8 @@ namespace Hunter.Model.Entities
 
         public bool IsBehindBoard(float board)
         {
-            if (Position.X + BodyRadius > board ||
-                Position.X + BodyRadius < -board ||
+            if (Position.X + BodyRadius > board * 2 ||
+                Position.X + BodyRadius < -board * 2 ||
                 Position.Y + BodyRadius > board ||
                 Position.Y + BodyRadius < -board)
             {

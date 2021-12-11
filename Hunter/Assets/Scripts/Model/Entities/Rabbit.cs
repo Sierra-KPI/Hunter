@@ -31,7 +31,7 @@ namespace Hunter.Model.Entities
             var rabbits = new List<Entity>();
             for (var i = 0; i < numberOfRabbits; i++)
             {
-                int xPos = new Random().Next(-8, 8);
+                int xPos = new Random().Next(-18, 18);
                 int yPos = new Random().Next(-8, 8);
 
                 Rabbit rabbit = new Rabbit

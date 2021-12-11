@@ -29,7 +29,7 @@ namespace Hunter.Model.Entities
             var wolves = new List<Entity>();
             for (var i = 0; i < numberOfWolves; i++)
             {
-                int xPos = new Random().Next(-8, 8);
+                int xPos = new Random().Next(-18, 18);
                 int yPos = new Random().Next(-8, 8);
 
                 Wolf wolf = new Wolf

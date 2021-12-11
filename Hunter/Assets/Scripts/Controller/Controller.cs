@@ -124,8 +124,6 @@ public class Controller : MonoBehaviour
         var isHunterDead = _game.TryToKillHunter();
         if (isHunterDead)
         {
-            enabled = false;
-            Debug.Log("Game Over");
             _sceneLoader.LoadLoosingGameEnd();
         }
     }
