@@ -124,6 +124,7 @@ public class Controller : MonoBehaviour
         {
             enabled = false;
             Debug.Log("Game Over");
+            _sceneLoader.LoadLoosingGameEnd();
         }
     }
 
