@@ -15,6 +15,18 @@ namespace Hunter.Model.Entities
         public abstract void Move();
         public bool IsDead { get; set; }
 
-        public void Die() { }
+        public bool IsBehindBoard(float board)
+        {
+            if (Position.X + BodyRadius > board * 2 ||
+                Position.X + BodyRadius < -board * 2 ||
+                Position.Y + BodyRadius > board ||
+                Position.Y + BodyRadius < -board)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

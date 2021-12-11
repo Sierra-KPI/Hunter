@@ -51,18 +51,5 @@ namespace Hunter.Model.Entities
 
             Entities = areaEntities;
         }
-
-        public bool IsBehindBoard(float board)
-        {
-            if (Position.X + BodyRadius > board * 2 ||
-                Position.X + BodyRadius < -board * 2 ||
-                Position.Y + BodyRadius > board ||
-                Position.Y + BodyRadius < -board)
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
 }
