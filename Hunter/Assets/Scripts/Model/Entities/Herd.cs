@@ -12,9 +12,13 @@ namespace Hunter.Model.Entities
         {
             int numberOfAnimals = new Random().Next(3, 10);
             _animals = new List<HerdAnimal>();
+
+            int xPos = new Random().Next(-8, 8);
+            int yPos = new Random().Next(-8, 8);
+
             for (var i = 0; i < numberOfAnimals; i++)
             {
-                _animals.Add(new Deer());
+                _animals.Add(new Deer { Position = new Vector2(xPos, yPos) });
             }
         }
 
@@ -23,15 +27,7 @@ namespace Hunter.Model.Entities
             var herds = new List<Entity>();
             for (var i = 0; i < numberOfHerds; i++)
             {
-                int xPos = new Random().Next(-3, 4);
-                int yPos = new Random().Next(-3, 4);
-
-                Herd herd = new Herd
-                {
-                    //Position = new Vector2(xPos, yPos)
-                    Position = Vector2.Zero
-                };
-
+                Herd herd = new Herd();
                 herds.Add(herd);
             }
             return herds;

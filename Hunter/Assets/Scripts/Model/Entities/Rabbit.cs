@@ -31,13 +31,12 @@ namespace Hunter.Model.Entities
             var rabbits = new List<Entity>();
             for (var i = 0; i < numberOfRabbits; i++)
             {
-                int xPos = new Random().Next(-3, 4);
-                int yPos = new Random().Next(-3, 4);
+                int xPos = new Random().Next(-8, 8);
+                int yPos = new Random().Next(-8, 8);
 
                 Rabbit rabbit = new Rabbit
                 {
-                    //Position = new Vector2(xPos, yPos)
-                    Position = Vector2.Zero
+                    Position = new Vector2(xPos, yPos)
                 };
 
                 rabbits.Add(rabbit);

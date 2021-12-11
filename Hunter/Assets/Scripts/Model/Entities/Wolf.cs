@@ -46,13 +46,12 @@ namespace Hunter.Model.Entities
             var wolves = new List<Entity>();
             for (var i = 0; i < numberOfWolves; i++)
             {
-                int xPos = new Random().Next(-3, 4);
-                int yPos = new Random().Next(-3, 4);
+                int xPos = new Random().Next(-8, 8);
+                int yPos = new Random().Next(-8, 8);
 
                 Wolf wolf = new Wolf
                 {
-                    //Position = new Vector2(xPos, yPos)
-                    Position = Vector2.Zero
+                    Position = new Vector2(xPos, yPos)
                 };
 
                 wolves.Add(wolf);
