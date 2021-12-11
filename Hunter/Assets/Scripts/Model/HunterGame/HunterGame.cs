@@ -37,6 +37,18 @@ namespace Hunter.Model.HunterGame
                         animalsToBeKilled.Add(animal);
                         animal.IsDead = true;
                     }
+
+                    if (animalType == AnimalType.Deer)
+                    {
+                        foreach (Animal herdAnimal in ((Herd)animal).GetAnimals())
+                        {
+                            if (herdAnimal.IsBehindBoard(_deadBorder))
+                            {
+                                animalsToBeKilled.Add(herdAnimal);
+                                herdAnimal.IsDead = true;
+                            }
+                        }
+                    }
                 }
 
                 foreach (Animal animal in animalsToBeKilled)

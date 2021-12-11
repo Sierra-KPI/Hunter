@@ -53,7 +53,7 @@ public class Controller : MonoBehaviour
         PauseMenuController();
         if (_sceneLoader.isPaused) return;
         ReadMoves();
-        //TryToKillByWolf();
+        TryToKillByWolf();
         _game.Update();
         _view.ChangeGameObjectsPositions();
         _view.DeleteDeadAnimals();
