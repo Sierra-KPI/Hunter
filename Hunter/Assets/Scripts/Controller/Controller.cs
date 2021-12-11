@@ -155,5 +155,9 @@ public class Controller : MonoBehaviour
         {
             _sceneLoader.LoadWinningGameEnd();
         }
+        if (_game.Hunter.IsDead)
+        {
+            _sceneLoader.LoadLoosingGameEnd();
+        }
     }
 }

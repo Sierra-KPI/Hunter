@@ -10,7 +10,7 @@ namespace Hunter.Model.HunterGame
     {
         public Dictionary<EntityType, List<Entity>> Entities = new();
         public HunterPlayer Hunter;
-        private readonly float _deadBorder = 8f; // CHANGE
+        private readonly float _deadBorder = 9f; // CHANGE
 
         public HunterGame(int rabbits, int deers, int wolves)
         {
@@ -26,7 +26,14 @@ namespace Hunter.Model.HunterGame
             foreach (EntityType entityType in
                 (EntityType[])Enum.GetValues(typeof(EntityType)))
             {
-                if (entityType == EntityType.Hunter) continue;
+                if (entityType == EntityType.Hunter)
+                {
+                    if (Hunter.IsBehindBoard(_deadBorder))
+                    {
+                        Hunter.IsDead = true;
+                    }
+                    continue;
+                }
                 List<Animal> animalsToBeKilled = new List<Animal>();
                 foreach (Animal animal in Entities[entityType])
                 {

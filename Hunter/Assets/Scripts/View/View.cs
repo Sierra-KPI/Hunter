@@ -93,7 +93,7 @@ public class View : MonoBehaviour
         {
             if (keyValue.Key.IsDead)
             {
-                DestroyEntity((Animal)keyValue.Key);
+                DestroyEntity(keyValue.Key);
             }
         }
     }
