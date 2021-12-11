@@ -1,8 +1,8 @@
-using UnityEngine;
-using Hunter.Model.Entities;
-using Hunter.Model.HunterGame;
 using System;
 using System.Collections.Generic;
+using Hunter.Model.Entities;
+using Hunter.Model.HunterGame;
+using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
@@ -43,7 +43,7 @@ public class Controller : MonoBehaviour
 
         _sceneLoader = gameObject.AddComponent<SceneLoader>();
         _sceneLoader.SetPauseMenu();
-        
+
         CreateEntities();
     }
 
@@ -56,9 +56,7 @@ public class Controller : MonoBehaviour
         _game.Update();
         _view.ChangeGameObjectsPositions();
         _view.DeleteDeadAnimals();
-
         CheckGameEnd();
-
     }
 
     private void CreateEntities()
@@ -76,7 +74,6 @@ public class Controller : MonoBehaviour
                 List<Entity> animals = _game.GetAnimals(entityType);
                 _view.CreateEntities(animals);
             }
-            
         }
     }
 
@@ -144,7 +141,6 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _sceneLoader.LoadPauseMenu();
-            
         }
     }
 

@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using System.Numerics;
 using Hunter.Model.Entities;
-using System.Collections.Generic;
 
 namespace Hunter.Model.Behaviours
 {

@@ -13,7 +13,7 @@ namespace Hunter.Model.Entities
             EntityType = EntityType.Hunter;
         }
 
-        public override void Move(){}
+        public override void Move() { }
 
         public void MoveTo(float h, float v)
         {

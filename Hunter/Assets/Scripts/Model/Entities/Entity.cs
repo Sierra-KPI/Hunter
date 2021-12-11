@@ -1,6 +1,4 @@
-using System;
 using System.Numerics;
-using System.Timers;
 
 namespace Hunter.Model.Entities
 {

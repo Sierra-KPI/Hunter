@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 using Hunter.Model.Entities;
 
 namespace Hunter.Model.Behaviours

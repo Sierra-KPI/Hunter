@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using Hunter.Model.Entities;
 
@@ -10,7 +9,7 @@ namespace Hunter.Model.HunterGame
     {
         public Dictionary<EntityType, List<Entity>> Entities = new();
         public HunterPlayer Hunter;
-        private readonly float _deadBorder = 9f; // CHANGE
+        private readonly float _deadBorder = 9f;
 
         public HunterGame(int rabbits, int deers, int wolves)
         {
@@ -34,6 +33,7 @@ namespace Hunter.Model.HunterGame
                     }
                     continue;
                 }
+
                 List<Animal> animalsToBeKilled = new List<Animal>();
                 foreach (Animal animal in Entities[entityType])
                 {
@@ -69,6 +69,7 @@ namespace Hunter.Model.HunterGame
             switch (entityType)
             {
                 case EntityType.Rabbit:
+                case EntityType.Wolf:
                     entities = Entities[entityType];
                     break;
                 case EntityType.Deer:
@@ -79,9 +80,6 @@ namespace Hunter.Model.HunterGame
                             entities.Add(anim);
                         }
                     }
-                    break;
-                case EntityType.Wolf:
-                    entities = Entities[entityType];
                     break;
             }
             return entities;
@@ -144,8 +142,7 @@ namespace Hunter.Model.HunterGame
             {
                 foreach (Entity animal in wolf.Entities)
                 {
-                    if (animal is HunterPlayer) continue;
-                    if (((Animal)animal).EntityType == EntityType.Wolf) continue;
+                    if (animal.EntityType == EntityType.Hunter || animal.EntityType == EntityType.Wolf) continue;
                     if (CollisionDetection.AreColliding(wolf, animal, wolf.BodyRadius, animal.BodyRadius))
                     {
                         if (KillAnimal((Animal)animal))
