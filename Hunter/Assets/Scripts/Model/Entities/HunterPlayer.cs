@@ -4,7 +4,7 @@ namespace Hunter.Model.Entities
 {
     public class HunterPlayer : Entity
     {
-        private int _bullets = 200;
+        private int _bullets = 40;
         public float ShotDistance = 3f;
 
         public HunterPlayer()

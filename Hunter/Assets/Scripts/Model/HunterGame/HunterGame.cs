@@ -40,11 +40,8 @@ namespace Hunter.Model.HunterGame
                     animal.Move();
                     animal.GetEntitiesInArea(GetAllEntities());
 
-                    if (animal.IsBehindBoard(_deadBorder))
-                    {
-                        animalsToBeKilled.Add(animal);
-                        animal.IsDead = true;
-                    }
+                    if (animal.IsBehindBoard(_deadBorder)) animal.IsDead = true;
+                    if (animal.IsDead) animalsToBeKilled.Add(animal);
 
                     if (entityType == EntityType.Deer)
                     {
