@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Hunter.Model.Behaviours
 {
-    public class FleetBehaviour
+    public class FleeBehaviour
     {
         public static Vector2 RunAway(Animal animal)
         {
@@ -69,9 +69,7 @@ namespace Hunter.Model.Behaviours
                                 minDistance = targetDistance;
                                 _targetPosition = entity.Position;
                             }
-                            else continue;
                         }
-                        else continue;
                     }
                 }
                 else

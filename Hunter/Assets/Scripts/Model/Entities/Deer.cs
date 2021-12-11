@@ -23,7 +23,7 @@ namespace Hunter.Model.Entities
         {
             Vector2 wander = WanderBehaviour.Wander(this);
             Vector2 steering = HerdBehaviour.GetHerdVelocity(Deers, this);
-            Vector2 fleeing = FleetBehaviour.DeerRunAway(this);
+            Vector2 fleeing = FleeBehaviour.DeerRunAway(this);
             if (Deers.GetLength(0) == 1) Velocity = Vector2.Multiply(Velocity + wander + fleeing, MaxSpeed);
             else Velocity = Vector2.Multiply(Velocity + steering + wander + fleeing, MaxSpeed);
             Position += Velocity;

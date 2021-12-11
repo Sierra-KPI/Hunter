@@ -34,7 +34,6 @@ namespace Hunter.Model.Behaviours
                             minDistance = targetDistance;
                             _targetPosition = entity.Position;
                         }
-                        else continue;
                     }
                 }
                 else
