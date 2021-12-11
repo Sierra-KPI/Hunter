@@ -50,9 +50,8 @@ namespace Hunter.Model.Entities
         {
             Vector2 steering = WanderBehaviour.Wander(this);
             Vector2 borderAvoidence = AvoidBordersBehaviour.AvoidBorders(this);
-            //Vector2 fleeing = AvoidBordersBehaviour.AvoidBorders(this);
-
-            Velocity = Vector2.Multiply(Velocity + steering, MaxSpeed);
+            Vector2 fleeing = FleetBehaviour.RunAway(this);
+            Velocity = Vector2.Multiply(Velocity + steering + fleeing, MaxSpeed);
             Velocity = Vector2.Multiply(Velocity +
                 borderAvoidence, MaxSpeed * 600);
             //Velocity = Vector2.Multiply(Velocity + fleeing, RunSpeed);

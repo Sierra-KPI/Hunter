@@ -12,10 +12,11 @@ namespace Hunter.Model.HunterGame
         public HunterPlayer Hunter;
         private readonly float _deadBorder = 8f; // CHANGE
 
-        public HunterGame(int rabbits, int deers, int wolfs)
+        public HunterGame(int rabbits, int deers, int wolves)
         {
             Entities.Add(AnimalType.Rabbit, Rabbit.CreateEntities(rabbits));
             Entities.Add(AnimalType.Deer, Herd.CreateEntities(deers));
+            Entities.Add(AnimalType.Wolf, Wolf.CreateEntities(wolves));
 
             Hunter = new HunterPlayer();
         }
@@ -29,8 +30,7 @@ namespace Hunter.Model.HunterGame
                 foreach (Animal animal in Entities[animalType])
                 {
                     animal.Move();
-                    animal.GetEntitiesInArea(Entities.SelectMany(d =>
-                    d.Value).ToList());
+                    animal.GetEntitiesInArea(GetAllEntities());
 
                     if (animal.IsBehindBoard(_deadBorder))
                     {
@@ -63,11 +63,24 @@ namespace Hunter.Model.HunterGame
                         }
                     }
                     break;
+                case AnimalType.Wolf:
+                    entities = Entities[animalType];
+                    break;
             }
             return entities;
         }
 
-        public Animal TryToKillAnimalByShot(float shotX, float shotY)
+        public List<Entity> GetAllEntities()
+        {
+            List<Entity> entities = new();
+            foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+            {
+                entities.AddRange(GetAnimals(animalType));
+            }
+            return entities;
+        }
+
+        public Animal TryToKillAnimalByHunter(float shotX, float shotY)
         {
             var shot = new Vector2(shotX, shotY);
             var shotVector = shot - Hunter.Position;
@@ -107,11 +120,31 @@ namespace Hunter.Model.HunterGame
             return null;
         }
 
-        public bool KillAnimal(Animal animal)
+        public Animal TryToKillAnimalByWolf()
+        {
+            foreach (Animal wolf in Entities[AnimalType.Wolf])
+            {
+                foreach (Animal animal in wolf.Entities)
+                {
+                    if (animal.AnimalType == AnimalType.Wolf) continue;
+                    if (CollisionDetection.AreColliding(wolf, animal, wolf.BodyRadius, animal.BodyRadius))
+                    {
+                        if (KillAnimal(animal))
+                        {
+                            return animal;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        private bool KillAnimal(Animal animal)
         {
             switch (animal.AnimalType)
             {
                 case AnimalType.Rabbit:
+                case AnimalType.Wolf:
                     return Entities[animal.AnimalType].Remove(animal);
                 case AnimalType.Deer:
                     foreach (Herd herd in Entities[animal.AnimalType])
@@ -129,6 +162,19 @@ namespace Hunter.Model.HunterGame
             }
             return false;
         }
+
+        public bool TryToKillHunter()
+        {
+            foreach (Animal wolf in Entities[AnimalType.Wolf])
+            {
+                if (CollisionDetection.AreColliding(wolf, Hunter, wolf.BodyRadius, Hunter.BodyRadius))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         private double TransformAngle(double angle)
         {

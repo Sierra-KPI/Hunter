@@ -521,6 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rabbitsPrefab: {fileID: 2939507886603013002, guid: 597a91cef0c335f40ac900a72b027d7a, type: 3}
   _deersPrefab: {fileID: 2939507886603013002, guid: 1e8a33878ebb5f143871da07b7003c48, type: 3}
+  _wolvesPrefab: {fileID: 4390269656966409110, guid: fcc458531850a564eb631bb123dae25c, type: 3}
   _hunterPrefab: {fileID: 2939507886603013002, guid: 5426e332b717f7b4abfb171b40985ab6, type: 3}
   _lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 3}
 --- !u!4 &832201668

@@ -94,9 +94,9 @@ public class EntityFactory : MonoBehaviour
             case AnimalType.Deer:
                 number = AnimalsNumber["Deers"] * 10;
                 break;
-            /*case AnimalType.Wolf:
+            case AnimalType.Wolf:
                 number = AnimalsNumber["Wolves"];
-                break;*/
+                break;
 
         }
         return number;

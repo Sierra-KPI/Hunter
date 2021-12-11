@@ -15,7 +15,7 @@ public class View : MonoBehaviour
         _entities.Add(hunter, obj);
     }
 
-    public void CreateEntityObjects(GameObject _rabbitsPrefab, GameObject _deersPrefab)
+    public void CreateEntityObjects(GameObject _rabbitsPrefab, GameObject _deersPrefab, GameObject _wolvesPrefab)
     {
         var _rabbitObject = new EntityObject(
             AnimalType.Rabbit,
@@ -28,6 +28,12 @@ public class View : MonoBehaviour
             _deersPrefab
         );
         _entityFactory.AddEntityObject(_deerObject);
+
+        var _wolfObject = new EntityObject(
+            AnimalType.Wolf,
+            _wolvesPrefab
+        );
+        _entityFactory.AddEntityObject(_wolfObject);
 
         _entityFactory.CreateEntityObjects();
     }

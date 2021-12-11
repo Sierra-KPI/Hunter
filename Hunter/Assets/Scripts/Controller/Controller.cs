@@ -20,6 +20,10 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private GameObject _deersPrefab;
 
+    [Header("Wolves")]
+    [SerializeField]
+    private GameObject _wolvesPrefab;
+
     [Header("Hunter")]
     [SerializeField]
     private GameObject _hunterPrefab;
@@ -31,9 +35,9 @@ public class Controller : MonoBehaviour
     {
         int _rabbitsNumber = EntityFactory.GetAnimalsNumber(AnimalType.Rabbit);
         int _deersNumber = EntityFactory.GetAnimalsNumber(AnimalType.Deer) / 10;
-        //int _wolvesNumber = EntityFactory.GetAnimalsNumber(AnimalType.Wolf);
+        int _wolvesNumber = EntityFactory.GetAnimalsNumber(AnimalType.Wolf);
 
-        _game = new(_rabbitsNumber, _deersNumber, 0);
+        _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
         _view = gameObject.AddComponent<View>();
         _view.LineMaterial = _lineMaterial;
 
@@ -49,6 +53,7 @@ public class Controller : MonoBehaviour
         PauseMenuController();
         if (_sceneLoader.isPaused) return;
         ReadMoves();
+        //TryToKillByWolf();
         _game.Update();
         _view.ChangeGameObjectsPositions();
         _view.DeleteDeadAnimals();
@@ -79,32 +84,46 @@ public class Controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Vector3 screenPosition = new Vector3(Input.mousePosition.x,
-                Input.mousePosition.y);
-            Vector3 vectorEnd = Camera.main.ScreenToWorldPoint(screenPosition);
-            vectorEnd.z = 0;
-            Vector3 vectorStart = new Vector3(_game.Hunter.Position.X,
-                _game.Hunter.Position.Y);
+            Vector3 screenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
+            Vector3 vector = Camera.main.ScreenToWorldPoint(screenPosition);
+            vector.z = 0;
+            TryToKillByHunter(vector);
+        }
+    }
 
-            if (_game.Hunter.MakeShot())
+    private void TryToKillByHunter(Vector3 vectorEnd)
+    {
+        Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
+        if (_game.Hunter.MakeShot())
+        {
+            Debug.Log("Make Shot");
+            var deadAnimal = _game.TryToKillAnimalByHunter(vectorEnd.x, vectorEnd.y);
+            var shotLength = _game.Hunter.ShotDistance;
+            if (deadAnimal != null)
             {
-                Debug.Log("Make Shot");
-                var deadAnimal = _game.TryToKillAnimalByShot(vectorEnd.x,
-                    vectorEnd.y);
-
-                var shotLength = _game.Hunter.ShotDistance;
-
-                if (deadAnimal != null)
-                {
-                    _view.DestroyEntity(deadAnimal);
-                    shotLength = (_game.Hunter.Position -
-                        deadAnimal.Position).Length();
-                }
-
-                var direction = (vectorEnd - vectorStart).normalized;
-                vectorEnd = vectorStart + direction * shotLength;
-                _view.DrawShotLine(vectorStart, vectorEnd);
+                _view.DestroyEntity(deadAnimal);
+                shotLength = (_game.Hunter.Position - deadAnimal.Position).Length();
             }
+
+            var direction = (vectorEnd - vectorStart).normalized;
+            vectorEnd = vectorStart + direction * shotLength;
+            _view.DrawShotLine(vectorStart, vectorEnd);
+        }
+    }
+
+    private void TryToKillByWolf()
+    {
+        var deadAnimal = _game.TryToKillAnimalByWolf();
+        if (deadAnimal != null)
+        {
+            Debug.Log("Kill By Wolf");
+            _view.DestroyEntity(deadAnimal);
+        }
+        var isHunterDead = _game.TryToKillHunter();
+        if (isHunterDead)
+        {
+            enabled = false;
+            Debug.Log("Game Over");
         }
     }
 
