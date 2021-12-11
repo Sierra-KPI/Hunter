@@ -5,7 +5,7 @@ namespace Hunter.Model.Entities
 {
     public class Deer : HerdAnimal
     {
-        public float RunSpeed { get; set; }
+        //public float WolfRadius { get; set; }
 
         public Deer() : base()
         {

@@ -10,6 +10,7 @@ namespace Hunter.Model.HunterGame
     {
         public Dictionary<AnimalType, List<Entity>> Entities = new();
         public HunterPlayer Hunter;
+        private readonly float _deadBorder = 8f; // CHANGE
 
         public HunterGame(int rabbits, int deers, int wolves)
         {
@@ -22,12 +23,25 @@ namespace Hunter.Model.HunterGame
 
         public void Update()
         {
-            foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+            foreach (AnimalType animalType in
+                (AnimalType[])Enum.GetValues(typeof(AnimalType)))
             {
+                List<Animal> animalsToBeKilled = new List<Animal>();
                 foreach (Animal animal in Entities[animalType])
                 {
                     animal.Move();
                     animal.GetEntitiesInArea(GetAllEntities());
+
+                    if (animal.IsBehindBoard(_deadBorder))
+                    {
+                        animalsToBeKilled.Add(animal);
+                        animal.IsDead = true;
+                    }
+                }
+
+                foreach (Animal animal in animalsToBeKilled)
+                {
+                    KillAnimal(animal);
                 }
             }
         }
@@ -71,17 +85,23 @@ namespace Hunter.Model.HunterGame
             var shot = new Vector2(shotX, shotY);
             var shotVector = shot - Hunter.Position;
 
-            foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+            foreach (AnimalType animalType in
+                (AnimalType[])Enum.GetValues(typeof(AnimalType)))
             {
                 var list = GetAnimals(animalType);
                 foreach (Animal animalEntity in list)
                 {
                     var animalVector = (animalEntity.Position - Hunter.Position);
-                    if (animalVector.Length() > Hunter.ShotDistance) continue;
+                    if (animalVector.Length() > Hunter.ShotDistance)
+                    {
+                        continue;
+                    }
 
-                    double maxAngle = Math.Asin(animalEntity.BodyRadius / animalVector.Length());
+                    double maxAngle = Math.Asin(animalEntity.BodyRadius /
+                        animalVector.Length());
 
-                    double shotAngle = Math.Acos((shotVector.X * animalVector.X + shotVector.Y * animalVector.Y) / (
+                    double shotAngle = Math.Acos((shotVector.X *
+                        animalVector.X + shotVector.Y * animalVector.Y) / (
                         shotVector.Length() * animalVector.Length()));
 
                     maxAngle = TransformAngle(maxAngle);
@@ -91,6 +111,7 @@ namespace Hunter.Model.HunterGame
                     {
                         if (KillAnimal(animalEntity))
                         {
+                            animalEntity.IsDead = true;
                             return animalEntity;
                         }
                     }
@@ -166,6 +187,5 @@ namespace Hunter.Model.HunterGame
                 return angle;
             }
         }
-
     }
 }

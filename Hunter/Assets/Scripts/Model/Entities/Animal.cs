@@ -6,7 +6,6 @@ namespace Hunter.Model.Entities
 {
     public abstract class Animal : Entity
     {
-        public float BoardSeekRadius { get; set; }
         public float BodySeekRadius { get; set; }
         public List<Entity> Entities = new();
         public float WanderCircleDistance { get; set; }
@@ -53,6 +52,19 @@ namespace Hunter.Model.Entities
             }
 
             Entities = areaEntities;
+        }
+
+        public bool IsBehindBoard(float board)
+        {
+            if (Position.X + BodyRadius > board ||
+                Position.X + BodyRadius < -board ||
+                Position.Y + BodyRadius > board ||
+                Position.Y + BodyRadius < -board)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -8,6 +8,7 @@ public class Controller : MonoBehaviour
 {
     private HunterGame _game;
     private View _view;
+    private SceneLoader _sceneLoader;
 
     [Header("Game Settings")]
 
@@ -27,6 +28,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private GameObject _hunterPrefab;
 
+    [SerializeField]
+    private Material _lineMaterial;
+
     private void Start()
     {
         int _rabbitsNumber = EntityFactory.GetAnimalsNumber(AnimalType.Rabbit);
@@ -35,6 +39,10 @@ public class Controller : MonoBehaviour
 
         _game = new(_rabbitsNumber, _deersNumber, _wolvesNumber);
         _view = gameObject.AddComponent<View>();
+        _view.LineMaterial = _lineMaterial;
+
+        _sceneLoader = gameObject.AddComponent<SceneLoader>();
+        _sceneLoader.SetPauseMenu();
         
         _view.CreateHunter(_game.Hunter, _hunterPrefab);
         CreateAnimals();
@@ -42,16 +50,23 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
+        PauseMenuController();
+        if (_sceneLoader.isPaused) return;
         ReadMoves();
         //TryToKillByWolf();
         _game.Update();
         _view.ChangeGameObjectsPositions();
+        _view.DeleteDeadAnimals();
+
+        //CheckGameEnd();
+
     }
 
     private void CreateAnimals()
     {
-        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab);
-        foreach (AnimalType animalType in (AnimalType[])Enum.GetValues(typeof(AnimalType)))
+        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab);
+        foreach (AnimalType animalType in
+            (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
             List<Entity> animals = _game.GetAnimals(animalType);
             _view.CreateEntities(animals);
@@ -118,4 +133,20 @@ public class Controller : MonoBehaviour
         MousePosition();
     }
 
+    private void PauseMenuController()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _sceneLoader.LoadPauseMenu();
+            
+        }
+    }
+
+    private void CheckGameEnd()
+    {
+        if (_game.GetAllEntities().Count == 0)
+        {
+            _sceneLoader.LoadWinningGameEnd();
+        }
+    }
 }

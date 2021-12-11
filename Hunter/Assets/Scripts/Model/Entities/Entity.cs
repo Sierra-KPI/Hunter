@@ -13,6 +13,7 @@ namespace Hunter.Model.Entities
         public float MaxSpeed { get; set; }
 
         public abstract void Move();
+        public bool IsDead { get; set; }
 
         public void Die() { }
     }

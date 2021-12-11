@@ -12,6 +12,7 @@ namespace Hunter.Model.Entities
         public Rabbit() : base()
         {
             MaxSpeed = 2 * 0.001f;
+            RunSpeed = 4 * 0.001f;
             BodyRadius = 0.25f; // If size in unity = 3,
                                 // then divide it by 12 and
                                 // You'll get BodyRadius
@@ -48,8 +49,13 @@ namespace Hunter.Model.Entities
         public override void Move()
         {
             Vector2 steering = WanderBehaviour.Wander(this);
+            Vector2 borderAvoidence = AvoidBordersBehaviour.AvoidBorders(this);
             Vector2 fleeing = FleetBehaviour.RunAway(this);
             Velocity = Vector2.Multiply(Velocity + steering + fleeing, MaxSpeed);
+            Velocity = Vector2.Multiply(Velocity +
+                borderAvoidence, MaxSpeed * 600);
+            //Velocity = Vector2.Multiply(Velocity + fleeing, RunSpeed);
+
             Position += Velocity;
         }
     }
