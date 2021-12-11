@@ -58,13 +58,13 @@ public class Controller : MonoBehaviour
         _view.ChangeGameObjectsPositions();
         _view.DeleteDeadAnimals();
 
-        //CheckGameEnd();
+        CheckGameEnd();
 
     }
 
     private void CreateAnimals()
     {
-        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab);
+        _view.CreateEntityObjects(_rabbitsPrefab, _deersPrefab, _wolvesPrefab);
         foreach (AnimalType animalType in
             (AnimalType[])Enum.GetValues(typeof(AnimalType)))
         {
