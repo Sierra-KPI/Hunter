@@ -103,7 +103,6 @@ public class Controller : MonoBehaviour
         Vector3 vectorStart = new Vector3(_game.Hunter.Position.X, _game.Hunter.Position.Y);
         if (_game.Hunter.MakeShot())
         {
-            Debug.Log("Make Shot");
             var deadAnimal = _game.TryToKillAnimalByHunter(vectorEnd.x, vectorEnd.y);
             var shotLength = _game.Hunter.ShotDistance;
             if (deadAnimal != null)
@@ -123,7 +122,6 @@ public class Controller : MonoBehaviour
         var deadAnimal = _game.TryToKillAnimalByWolf();
         if (deadAnimal != null)
         {
-            Debug.Log("Kill By Wolf");
             _view.DestroyEntity(deadAnimal);
         }
         var isHunterDead = _game.TryToKillHunter();
@@ -152,7 +150,8 @@ public class Controller : MonoBehaviour
 
     private void CheckGameEnd()
     {
-        if (_game.GetAllEntities().Count == 1)
+        var allEntities = _game.GetAllEntities();
+        if (allEntities.Count == 1 && allEntities[0].EntityType == EntityType.Hunter)
         {
             _sceneLoader.LoadWinningGameEnd();
         }
