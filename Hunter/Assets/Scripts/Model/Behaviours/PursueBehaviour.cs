@@ -40,6 +40,7 @@ namespace Hunter.Model.Behaviours
 
                 return _targetPosition;
             }
+
             Vector2 targetPosition = GetTargetPosition();
             Vector2 desiredVelocity = Vector2.Add(targetPosition,
                 -animal.Position);
