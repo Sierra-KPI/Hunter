@@ -25,35 +25,33 @@ Steering behaviors aim to help autonomous characters move in a realistic manner,
 ## Example
 
 ```csharp
-private List<Entity> GetAllEntities()
+public static Vector2 GetHerdVelocity(HerdAnimal[] herdAnimals,
+    HerdAnimal currentAnimal)
 {
-    List<Entity> allEntities = new List<Entity>();
-
-    allEntities.AddRange(_players);
-    allEntities.AddRange(_food);
-
-    return allEntities;
-}
-
-private void SpawnFood()
-{
-    for (var i = 0; i < FoodCount; i++)
+    Vector2 perceivedCentre = Vector2.Zero;
+    Vector2 separation = Vector2.Zero;
+    Vector2 perceivedVelocity = Vector2.Zero;
+    foreach (HerdAnimal animal in herdAnimals)
     {
-        Food food = new Food(GetRandomPosition());
-
-        _food.Add(food);
-        Board.AddEntityToBoard(food);
+        if (animal != currentAnimal)
+        {
+            perceivedCentre += animal.Position;
+            if ((animal.Position -
+                currentAnimal.Position).LengthSquared() < _distance)
+            {
+                separation -= (animal.Position -
+                    currentAnimal.Position);
+            }
+            perceivedVelocity += animal.Velocity;
+        }
     }
-}
-
-public Player AddPlayer()
-{
-    Player player = new Player(GetRandomPosition());
-
-    _players.Add(player);
-    Board.AddEntityToBoard(player);
-
-    return player;
+    perceivedCentre /= herdAnimals.GetLength(0) - 1;
+    Vector2 cohesion = (perceivedCentre -
+        currentAnimal.Position) * _cohesionCoef;
+    perceivedVelocity /= (herdAnimals.GetLength(0) - 1);
+    Vector2 alignment = (perceivedVelocity -
+        currentAnimal.Velocity) * _alignmentCoef;
+    return cohesion + separation + alignment;
 }
 ```
 
