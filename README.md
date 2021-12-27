@@ -1,7 +1,7 @@
 # Hunter
 
 <p align="center">
-  <img src="/docs/Agar.ioHeader.png" data-canonical-src="/docs/Agar.ioHeader.png"/>
+  <img src="/docs/HunterHeader.png" data-canonical-src="/docs/HunterHeader.png"/>
 </p>
 
 ## Table of Contents
@@ -61,7 +61,7 @@ public Player AddPlayer()
 
 ## Pictures
 
-[![Picture1](/docs/Agar.io.png)](/docs/Agar.io.png)
+[![Picture1](/docs/Hunter.png)](/docs/Hunter.png)
 
 ---
 
