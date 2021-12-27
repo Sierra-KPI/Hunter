@@ -13,12 +13,12 @@
 
 ### Description
 
-Agar.io is a massively multiplayer online action game created by Brazilian developer Matheus Valadares. Players control one or more circular cells in a map representing a Petri dish. The goal is to gain as much mass as possible by eating agar and cells smaller than the player's cell while avoiding larger ones which can eat the player's cells. Each player starts with one cell ~~, but players can split a cell into two once it reaches a sufficient mass, allowing them to control multiple cells~~. The name comes from the substance agar, used to culture bacteria.
+Steering behaviors aim to help autonomous characters move in a realistic manner, by using simple forces that are combined to produce life-like, improvisational navigation around the characters' environment. They are not based on complex strategies involving path planning or global calculations, but instead use local information, such as neighbors' forces. This makes them simple to understand and implement, but still able to produce very complex movement patterns
 
 ## Badges
 
 [![Theme](https://img.shields.io/badge/Theme-GameDev-blueviolet)](https://img.shields.io/badge/Theme-GameDev-blueviolet)
-[![Game](https://img.shields.io/badge/Game-Agario-blueviolet)](https://img.shields.io/badge/Game-Agario-blueviolet)
+[![Game](https://img.shields.io/badge/Game-Hunter-blueviolet)](https://img.shields.io/badge/Game-Hunter-blueviolet)
 
 ---
 
